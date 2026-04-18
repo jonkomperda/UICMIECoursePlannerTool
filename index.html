@@ -7,109 +7,699 @@
   <!-- Tailwind Play CDN (no build needed) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Tiny extras for nicer feel */
-    .card { box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-    .btn { @apply px-3 py-2 rounded-xl border bg-white hover:bg-gray-50; }
-    .badge { @apply text-[10px] px-1.5 py-0.5 rounded border; }
-    .curriculum-selector { @apply p-6 rounded-3xl bg-white border-2 border-slate-300 shadow-sm max-w-2xl mx-auto text-center; }
+    @font-face {
+      font-family: "Theinhardt Local";
+      src: local("Theinhardt Regular"), local("Theinhardt");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Theinhardt Local";
+      src: local("Theinhardt Medium"), local("Theinhardt");
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Theinhardt Local";
+      src: local("Theinhardt Bold"), local("Theinhardt");
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    :root {
+      --uic-red: #d50032;
+      --uic-blue: #001e62;
+      --uic-chicago-blue: #41b6e6;
+      --uic-expo-white: #f2f7eb;
+      --uic-steel-gray: #333333;
+      --uic-gold: #ffbf3f;
+      --bg: #eef3f9;
+      --bg-accent: #d7e4f5;
+      --surface: #ffffff;
+      --surface-muted: #f6f9fc;
+      --surface-strong: #ffffff;
+      --border: rgba(0, 30, 98, 0.26);
+      --border-strong: rgba(0, 30, 98, 0.48);
+      --ink: var(--uic-blue);
+      --ink-soft: #33415c;
+      --ink-muted: #4a556f;
+      --accent: var(--uic-red);
+      --accent-soft: rgba(213, 0, 50, 0.09);
+      --success: var(--uic-chicago-blue);
+      --success-soft: rgba(65, 182, 230, 0.12);
+      --warning: #5f4a06;
+      --warning-soft: rgba(255, 191, 63, 0.14);
+      --danger-soft: rgba(213, 0, 50, 0.1);
+      --shadow-lg: 0 14px 32px rgba(0, 30, 98, 0.08);
+      --shadow-md: 0 8px 18px rgba(0, 30, 98, 0.06);
+      --radius-xl: 24px;
+      --radius-2xl: 30px;
+    }
+
+    body {
+      font-family: "Theinhardt Local", "Theinhardt", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink-soft);
+    }
+
+    h1, h2, h3, .display-face {
+      font-family: "Theinhardt Local", "Theinhardt", "Helvetica Neue", Arial, sans-serif;
+      color: var(--uic-blue);
+      letter-spacing: -0.03em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: var(--uic-blue);
+      border-radius: 999px;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      box-shadow: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: var(--surface-muted);
+      border-color: var(--uic-blue);
+      box-shadow: none;
+    }
+
+    .btn:focus-visible,
+    .filter-select:focus-visible,
+    .input-shell select:focus-visible,
+    .course-card:focus-visible,
+    .warning-close:focus-visible,
+    #disclaimerAgreeBtn:focus-visible,
+    #decisionConfirmBtn:focus-visible,
+    #decisionCancelBtn:focus-visible {
+      outline: 3px solid var(--uic-chicago-blue);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--uic-blue);
+      color: #fff;
+      border-color: var(--uic-blue);
+    }
+
+    .btn-primary:hover {
+      background: #0b2b76;
+    }
+
+    .btn-secondary {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(213, 0, 50, 0.34);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      border-radius: 999px;
+      border: 2px solid rgba(0, 30, 98, 0.18);
+      padding: 0.28rem 0.7rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--uic-blue);
+    }
+
+    .card {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .app-shell {
+      max-width: 88rem;
+      margin: 0 auto;
+    }
+
+    .surface-panel {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-md);
+    }
+
+    .surface-panel-muted {
+      background: var(--surface-muted);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+    }
+
+    .control-deck {
+      padding: 1.8rem;
+      margin-bottom: 1.75rem;
+      background: #ffffff;
+    }
+
+    .onboarding-step {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 2px solid rgba(0, 30, 98, 0.16);
+      border-radius: 999px;
+      background: #ffffff;
+      padding: 0.85rem 1rem;
+      min-height: 4rem;
+      box-shadow: none;
+    }
+
+    .onboarding-step strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--uic-blue);
+    }
+
+    .onboarding-step span {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+    }
+
+    .step-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      background: var(--uic-red);
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+      border: 2px solid var(--uic-red);
+      box-shadow: none;
+    }
+
+    .input-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .input-shell label,
+    .helper-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--uic-red);
+      font-weight: 700;
+    }
+
+    .input-shell select {
+      appearance: none;
+      width: 100%;
+      border-radius: 1.2rem;
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--uic-blue);
+      font-weight: 700;
+      padding: 0.95rem 1rem;
+      box-shadow: none;
+    }
+
+    .filter-select {
+      border-radius: 999px;
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      color: var(--uic-blue);
+    }
+
+    .section-panel {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-heading h2 {
+      font-size: 1.7rem;
+      line-height: 1.1;
+      color: var(--uic-blue);
+      margin: 0;
+    }
+
+    .section-heading p {
+      margin: 0.25rem 0 0;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      max-width: 48rem;
+    }
+
+    .hero-panel {
+      background: var(--uic-blue);
+      color: #ffffff;
+      border-color: var(--uic-blue);
+      box-shadow: none;
+    }
+
+    .hero-panel h2,
+    .hero-panel .helper-kicker {
+      color: #fff;
+    }
+
+    .hero-panel p {
+      color: #ffffff;
+    }
+
+    .subtle-panel {
+      background: #ffffff;
+    }
+
+    .summary-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--uic-red);
+      border: 2px solid rgba(213, 0, 50, 0.28);
+      padding: 0.5rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .hero-panel .summary-pill {
+      background: #ffffff;
+      color: var(--uic-blue);
+      border-color: #ffffff;
+    }
+
+    .empty-state {
+      display: grid;
+      place-items: center;
+      min-height: 7rem;
+      border: 2px dashed rgba(0, 30, 98, 0.3);
+      border-radius: 1.3rem;
+      background: #ffffff;
+      color: var(--ink-soft);
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .course-card {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 11.5rem;
+      border-radius: 1.45rem;
+      border: 2px solid var(--border);
+      padding: 1rem;
+      background: #ffffff;
+      color: var(--ink);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      box-shadow: none;
+    }
+
+    .course-card:hover {
+      transform: translateY(-1px);
+      box-shadow: none;
+      border-color: var(--uic-blue);
+    }
+
+    .course-card[data-state="eligible"] {
+      background: #f4fbfe;
+      border-color: var(--uic-chicago-blue);
+    }
+
+    .course-card[data-state="taken"] {
+      background: #e5ebf3;
+      color: #364152;
+      text-decoration: line-through;
+      opacity: 1;
+      box-shadow: none;
+    }
+
+    .course-card[data-terminal="true"]:not([data-state="taken"]) {
+      border-width: 3px;
+      border-color: var(--uic-red);
+    }
+
+    .priority-badge {
+      background: rgba(213, 0, 50, 0.08);
+      color: var(--uic-red);
+      border-color: rgba(213, 0, 50, 0.3);
+    }
+
+    .eligible-badge {
+      background: rgba(65, 182, 230, 0.14);
+      color: var(--uic-blue);
+      border-color: rgba(65, 182, 230, 0.42);
+    }
+
+    .terminal-badge {
+      background: var(--danger-soft);
+      color: var(--uic-red);
+      border-color: rgba(213, 0, 50, 0.3);
+    }
+
+    .reason-badge {
+      background: rgba(0, 30, 98, 0.07);
+      color: var(--uic-blue);
+      border-color: rgba(0, 30, 98, 0.24);
+    }
+
+    .prereq-badge {
+      width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      align-items: flex-start;
+      line-height: 1.45;
+      border-radius: 1rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.76rem;
+      background: #f3f6fb;
+      color: var(--ink-soft);
+      border-color: rgba(0, 30, 98, 0.2);
+    }
+
+    .meta-badge {
+      background: #edf3e6;
+      color: #26303d;
+    }
+
+    .warning-banner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      border-radius: 1.25rem;
+      border: 2px solid rgba(255, 191, 63, 0.7);
+      background: #fff2c2;
+      color: var(--uic-blue);
+      padding: 1rem 1.1rem;
+      box-shadow: none;
+    }
+
+    .warning-close {
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0.1rem 0.2rem;
+    }
+
+    .terms-accordion summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .terms-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .terms-accordion[open] .accordion-indicator {
+      transform: rotate(90deg);
+    }
+
+    .accordion-indicator {
+      transition: transform 0.16s ease;
+    }
+
+    .footer-warning {
+      border-radius: var(--radius-xl);
+      border: 2px solid rgba(255, 191, 63, 0.7);
+      background: #fff8e8;
+      padding: 1.25rem 1.4rem;
+      color: var(--ink-soft);
+    }
+
+    .footer-warning h2 {
+      color: var(--uic-blue);
+    }
+
+    .muted-note {
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+    }
+
+    .disclaimer-card {
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
+    }
+
+    .decision-card {
+      border: 2px solid var(--border-strong);
+      background: #ffffff;
+    }
+
+    .decision-copy {
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .decision-copy p + p {
+      margin-top: 0.85rem;
+    }
+
+    .decision-list {
+      margin: 1rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--uic-blue);
+      font-weight: 600;
+    }
+
+    .decision-list li + li {
+      margin-top: 0.45rem;
+    }
+
+    @media (max-width: 768px) {
+      .control-deck {
+        padding: 1.1rem;
+      }
+
+      .section-panel {
+        padding: 1rem;
+      }
+
+      .section-heading {
+        flex-direction: column;
+      }
+
+      .section-heading h2 {
+        font-size: 1.45rem;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800 p-6">
-  <div id="disclaimerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 px-4">
-    <div class="w-full max-w-3xl rounded-3xl border-2 border-amber-300 bg-white p-7 shadow-2xl">
-      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">Experimental Tool Warning</h2>
-      <p class="mt-4 text-base font-semibold text-slate-900">
+<body class="min-h-screen p-4 md:p-6">
+  <div id="disclaimerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[rgba(0,30,98,0.72)] px-4">
+    <div class="disclaimer-card w-full max-w-3xl rounded-[32px] bg-[var(--surface-strong)] p-7 shadow-[var(--shadow-lg)]">
+      <div class="helper-kicker mb-3">Before You Use This Planner</div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--uic-blue)]">Experimental Tool Warning</h2>
+      <p class="mt-4 text-base font-semibold text-[var(--uic-blue)]">
         This is an experimental tool. It is not affiliated with UIC, the College of Engineering, MIE, or any other UIC unit.
       </p>
-      <p class="mt-3 text-base text-slate-800">
+      <p class="mt-3 text-base text-[var(--ink-soft)]">
         This is a personal project of a human being who has weekend hobbies.
       </p>
-      <p class="mt-3 text-base text-slate-800">
+      <p class="mt-3 text-base text-[var(--ink-soft)]">
         There is no guarantee or warranty that the recommendations are correct, complete, or appropriate for your situation. There is also no guarantee or warranty that no harm will come from following this tool's output.
       </p>
-      <p class="mt-3 text-base font-bold text-slate-900">
+      <p class="mt-3 text-base font-bold text-[var(--uic-blue)]">
         Use this tool entirely at your own risk. Always verify decisions against official UIC advising, catalog, and flowchart sources.
       </p>
+      <div class="mt-5 rounded-2xl border border-[var(--border)] bg-white/75 p-4 text-sm text-[var(--ink-soft)]">
+        You only have to acknowledge this once per browser, and the warning will remain visible at the bottom of the page for reference.
+      </div>
       <div class="mt-6 flex justify-end">
-        <button id="disclaimerAgreeBtn" class="rounded-2xl border border-amber-500 bg-amber-500 px-6 py-3 text-base font-bold text-white shadow-sm hover:bg-amber-600">
-          I Agree
+        <button id="disclaimerAgreeBtn" class="btn btn-primary">
+          I Agree And Continue
         </button>
       </div>
     </div>
   </div>
 
-  <div class="mx-auto max-w-7xl">
-    <!-- Curriculum Selector -->
-    <div class="curriculum-selector mb-6">
-      <label class="text-lg md:text-xl font-bold tracking-wide block mb-3">Curriculum Selection</label>
-      <select id="curriculumSelector" class="px-6 py-3 border-2 border-slate-400 rounded-2xl text-lg md:text-xl font-bold text-center w-full md:w-auto min-w-[22rem] max-w-full">
-        <option value="mechanical-engineering">Mechanical Engineering</option>
-        <option value="industrial-engineering">Industrial Engineering</option>
-        <option value="engineering-management">Engineering Management</option>
-        <option value="mechanical-engineering-2017-2024">Mechanical Engineering (Fall 2017 to Spring 2024)</option>
-        <option value="industrial-engineering-2017-2024">Industrial Engineering (Fall 2017 to Spring 2024)</option>
-      </select>
-    </div>
-
-    <header class="mb-6">
-      <h1 id="plannerTitle" class="text-2xl md:text-3xl font-bold tracking-tight">UIC MIE Flowchart — Interactive Planner</h1>
-      <p id="plannerSubtitle" class="text-sm mt-1 opacity-70">Click a course to mark it taken. Green = eligible now (considers coreqs & concurrent prereqs). Red ring = terminal (no dependents). Recommendations cap at 18 credits for the selected term.</p>
-    </header>
-
-    <!-- Warning Box -->
-    <div id="warningBox" class="hidden p-3 mb-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-sm"></div>
-
-    <!-- Toolbar -->
-    <div class="mb-3 flex flex-wrap items-center gap-3" id="toolbar">
-      <button id="resetBtn" class="btn">Reset</button>
-      <button id="exportBtn" class="btn">Export Image</button>
-      <label class="btn cursor-pointer">
-        Import Plan
-        <input id="importInput" type="file" accept="application/json" class="hidden" />
-      </label>
-      <label class="flex items-center gap-2 ml-auto text-sm">
-        <input id="eligibleOnly" type="checkbox" /> Show only eligible
-      </label>
-      <div class="flex items-center gap-2 text-sm">
-        <span>Target term:</span>
-        <select id="targetTerm" class="px-2 py-1 border rounded-xl">
-          <option value="Fall">Fall</option>
-          <option value="Spring">Spring</option>
-        </select>
+  <div id="decisionModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[rgba(0,30,98,0.72)] px-4" role="dialog" aria-modal="true" aria-labelledby="decisionTitle" aria-describedby="decisionBody">
+    <div class="decision-card w-full max-w-2xl rounded-[32px] bg-[var(--surface-strong)] p-7 shadow-[var(--shadow-lg)]">
+      <div class="helper-kicker mb-3">Prerequisite Confirmation</div>
+      <h2 id="decisionTitle" class="text-3xl md:text-4xl font-bold tracking-tight text-[var(--uic-blue)]">Review This Selection</h2>
+      <div id="decisionBody" class="decision-copy mt-4"></div>
+      <div class="mt-6 flex flex-wrap justify-end gap-3">
+        <button id="decisionCancelBtn" class="btn" type="button">No</button>
+        <button id="decisionConfirmBtn" class="btn btn-primary" type="button">Yes</button>
       </div>
     </div>
+  </div>
 
-    <!-- Recommendation (<=18 cr) -->
-    <section class="mb-6">
-      <h2 class="text-lg font-semibold mb-2">Recommended Next Term (≤18 credits)</h2>
-      <div id="recCredits" class="text-sm mb-2 opacity-70">Total credits: 0</div>
-      <div id="recGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-      <div id="recEmpty" class="text-sm opacity-70 hidden">No packable schedule under 18 credits for the selected term with current progress.</div>
+  <div class="app-shell">
+    <section class="surface-panel control-deck">
+      <div class="grid gap-6 lg:grid-cols-[1.45fr_0.95fr]">
+        <div class="space-y-5">
+          <div class="helper-kicker">Experimental Curriculum Planning Dashboard</div>
+          <header>
+            <h1 id="plannerTitle" class="text-4xl md:text-5xl font-bold tracking-tight text-[var(--ink)]">UIC MIE Flowchart Planner</h1>
+            <p id="plannerSubtitle" class="mt-3 max-w-3xl text-base md:text-lg text-[var(--ink-soft)]">Choose a curriculum, mark the courses you have already finished, and review a next-term recommendation that respects offerings, prerequisites, corequisites, and planner priority.</p>
+          </header>
+
+          <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <div class="onboarding-step">
+              <div class="step-index">1</div>
+              <div><strong>Choose curriculum</strong><span>Current and legacy plans are available.</span></div>
+            </div>
+            <div class="onboarding-step">
+              <div class="step-index">2</div>
+              <div><strong>Mark completed courses</strong><span>Click any course card to toggle it.</span></div>
+            </div>
+            <div class="onboarding-step">
+              <div class="step-index">3</div>
+              <div><strong>Review recommendation</strong><span>Use the target term to steer the next pack.</span></div>
+            </div>
+            <div class="onboarding-step">
+              <div class="step-index">4</div>
+              <div><strong>Export or share</strong><span>Download a PNG or planner JSON.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-panel-muted p-5 md:p-6">
+          <div class="input-shell">
+            <label for="curriculumSelector">Curriculum Selection</label>
+            <select id="curriculumSelector" class="text-lg md:text-xl">
+              <option value="mechanical-engineering">Mechanical Engineering</option>
+              <option value="industrial-engineering">Industrial Engineering</option>
+              <option value="engineering-management">Engineering Management</option>
+              <option value="mechanical-engineering-2017-2024">Mechanical Engineering (Fall 2017 to Spring 2024)</option>
+              <option value="industrial-engineering-2017-2024">Industrial Engineering (Fall 2017 to Spring 2024)</option>
+            </select>
+          </div>
+          <div class="mt-4 space-y-2">
+            <div id="curriculumMetaTitle" class="display-face text-2xl font-bold text-[var(--ink)]">Mechanical Engineering</div>
+            <p id="curriculumMetaDescription" class="muted-note">Curriculum details will appear here.</p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span id="curriculumMetaVersion" class="summary-pill">Version 1.0</span>
+              <span id="curriculumMetaUpdated" class="badge meta-badge">Updated recently</span>
+            </div>
+            <p id="progressNote" class="muted-note pt-1">Progress is saved separately for each curriculum on this browser.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="warningBox" class="hidden warning-banner mt-6">
+        <div id="warningMessage" class="text-sm md:text-[0.95rem] font-medium leading-6"></div>
+        <button id="warningDismissBtn" class="warning-close" type="button" aria-label="Dismiss message">Dismiss</button>
+      </div>
+
+      <div class="mt-6 grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+        <div class="surface-panel-muted p-4 md:p-5">
+          <div class="helper-kicker mb-3">Current Controls</div>
+          <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div class="input-shell">
+              <label for="targetTerm">Target Term</label>
+              <select id="targetTerm">
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+              </select>
+            </div>
+            <div class="input-shell">
+              <label for="viewFilter">View Filter</label>
+              <select id="viewFilter" class="filter-select">
+                <option value="all">All courses</option>
+                <option value="eligible">Eligible only</option>
+                <option value="untaken">Untaken only</option>
+                <option value="current-term">Next flowchart term</option>
+              </select>
+            </div>
+            <div class="input-shell">
+              <div class="helper-kicker">Saved Progress</div>
+              <p id="progressStatus" class="muted-note rounded-2xl border border-[var(--border)] bg-white/70 p-3">No saved progress loaded yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-panel-muted p-4 md:p-5">
+          <div class="helper-kicker mb-3">Plan Actions</div>
+          <div class="flex flex-wrap gap-3">
+            <button id="resetBtn" class="btn">Reset progress</button>
+            <button id="exportBtn" class="btn btn-primary">Download image (.png)</button>
+            <button id="exportJsonBtn" class="btn btn-secondary">Export plan (.json)</button>
+            <label class="btn cursor-pointer">
+              Import plan (.json)
+              <input id="importInput" type="file" accept="application/json" class="hidden" />
+            </label>
+          </div>
+          <p class="muted-note mt-3">Import accepts planner JSON exported from this tool. PNG export is for sharing and review, not re-importing.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Suggestions -->
-    <section class="mb-6">
-      <h2 class="text-lg font-semibold mb-2">All Eligible Candidates (by PW)</h2>
-      <div id="suggGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-      <div id="suggEmpty" class="text-sm opacity-70 hidden">No suggestions — either all done or prereqs unmet for the selected term.</div>
+    <section class="surface-panel section-panel hero-panel">
+      <div class="section-heading">
+        <div>
+          <div class="helper-kicker mb-2">Primary Recommendation</div>
+          <h2>Recommended Next Term</h2>
+          <p>Recommendations prioritize the next unfinished flowchart term first, then planner priority, while respecting prerequisites, concurrent rules, and course offering timing.</p>
+        </div>
+        <div class="summary-pill" id="recCredits">Total credits: 0</div>
+      </div>
+      <div id="recGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      <div id="recEmpty" class="empty-state hidden">No packable recommendation fits the selected term and your current progress. Try switching the target term or loosening the view filter.</div>
     </section>
 
-    <!-- Grid by term -->
-    <section id="termsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"></section>
+    <section class="surface-panel subtle-panel section-panel">
+      <div class="section-heading">
+        <div>
+          <div class="helper-kicker mb-2">Eligible Backlog</div>
+          <h2>Eligible Courses</h2>
+          <p>These courses are currently available under the selected term and filter, ordered by next flowchart placement first and planner priority second.</p>
+        </div>
+      </div>
+      <div id="suggGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      <div id="suggEmpty" class="empty-state hidden">No eligible courses match the current filter. Try a different target term or open the full curriculum below.</div>
+    </section>
 
-    <!-- Legend -->
+    <section class="surface-panel section-panel">
+      <div class="section-heading">
+        <div>
+          <div class="helper-kicker mb-2">Full Flowchart</div>
+          <h2>Curriculum Map</h2>
+          <p>Use the full map to review the entire degree path. On smaller screens, each term can collapse so it is easier to scan.</p>
+        </div>
+      </div>
+      <section id="termsGrid" class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-5"></section>
+    </section>
+
     <section class="mt-8">
-      <div class="flex flex-wrap items-center gap-3 text-xs">
-        <span class="px-2 py-1 rounded bg-white border">White = locked (hard prereqs not met / not offered)</span>
-        <span class="px-2 py-1 rounded bg-emerald-50 border border-emerald-300">Green = eligible now (concurrent/coreq rules apply)</span>
-        <span class="px-2 py-1 rounded bg-gray-200 border border-gray-300 line-through">Gray = marked taken</span>
-        <span class="px-2 py-1 rounded ring-1 ring-red-300">Red ring = terminal course</span>
+      <div class="flex flex-wrap items-center gap-3 text-xs md:text-sm">
+        <span class="badge meta-badge">White = locked or not offered</span>
+        <span class="badge eligible-badge">Chicago Blue = eligible now</span>
+        <span class="badge meta-badge line-through">Gray = marked taken</span>
+        <span class="badge terminal-badge">Red ring = terminal course</span>
       </div>
+      <p class="muted-note mt-3">Course status is also reinforced with text badges and strikethrough, so meaning does not rely on color alone.</p>
     </section>
 
     <footer class="mt-10 space-y-4">
-      <section class="rounded-3xl border-2 border-amber-300 bg-amber-50 px-6 py-5 text-sm text-amber-950 shadow-sm">
-        <h2 class="text-lg font-extrabold tracking-tight mb-2">Experimental Tool Warning</h2>
+      <section class="footer-warning text-sm">
+        <h2 class="display-face text-2xl font-bold tracking-tight mb-2">Experimental Tool Warning</h2>
         <p class="font-semibold">
           This tool is experimental and is not affiliated with UIC, the College of Engineering, MIE, or any other UIC unit.
         </p>
@@ -123,7 +713,7 @@
           Use at your own risk. Always verify everything against official UIC advising, catalog, and flowchart sources.
         </p>
       </section>
-      <p class="text-xs opacity-60">This planner encodes example concurrency and offering rules; verify against the official catalog/flowchart.</p>
+      <p class="text-xs text-[var(--ink-soft)]">This planner encodes example concurrency and offering rules; verify against the official catalog and degree flowchart.</p>
     </footer>
   </div>
 
@@ -132,9 +722,9 @@
   "metadata": {
     "id": "mechanical-engineering",
     "name": "Mechanical Engineering",
-    "description": "Standard MIE B.S. curriculum",
+    "description": "Mechanical Engineering curriculum based on the Fall 2024 and later flowchart.",
     "version": "1.0",
-    "lastUpdated": "2024-01-01"
+    "lastUpdated": "2026-04-17"
   },
   "terms": [
     {
@@ -172,6 +762,34 @@
   ],
   "courses": [
     {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "pw": 7,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "F1",
+      "pw": 4,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
       "code": "ENGL160",
       "name": "Academic Writing I",
       "credits": 3,
@@ -180,6 +798,22 @@
       "prerequisites": [],
       "corequisites": [],
       "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "F1",
+      "pw": 6,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
       "offeredIn": [
         "Fall",
         "Spring"
@@ -200,52 +834,6 @@
       ]
     },
     {
-      "code": "MATH180",
-      "name": "Calculus I",
-      "credits": 4,
-      "term": "F1",
-      "pw": 7,
-      "prerequisites": [],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "CHEM122",
-      "name": "General Chemistry I",
-      "credits": 3,
-      "term": "F1",
-      "pw": 1,
-      "prerequisites": [],
-      "corequisites": [
-        "CHEM123"
-      ],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "CHEM123",
-      "name": "General Chem Lab",
-      "credits": 2,
-      "term": "F1",
-      "pw": 1,
-      "prerequisites": [],
-      "corequisites": [
-        "CHEM122"
-      ],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
       "code": "GENED1",
       "name": "Gen Ed #1",
       "credits": 3,
@@ -259,22 +847,6 @@
         "Spring"
       ],
       "isPlaceholder": true
-    },
-    {
-      "code": "ENGL161",
-      "name": "Academic Writing II",
-      "credits": 3,
-      "term": "S1",
-      "pw": 1,
-      "prerequisites": [
-        "ENGL160"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
     },
     {
       "code": "MATH181",
@@ -298,22 +870,6 @@
       "credits": 3,
       "term": "S1",
       "pw": 2,
-      "prerequisites": [
-        "MATH180"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "PHYS141",
-      "name": "Physics I: Mechanics",
-      "credits": 4,
-      "term": "S1",
-      "pw": 6,
       "prerequisites": [],
       "corequisites": [],
       "concurrentPrereqs": [
@@ -325,27 +881,13 @@
       ]
     },
     {
-      "code": "ME250",
-      "name": "Introduction to Engineering Design and Graphics",
+      "code": "ENGL161",
+      "name": "Academic Writing II",
       "credits": 3,
       "term": "S1",
-      "pw": 4,
-      "prerequisites": [],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "MATH210",
-      "name": "Calculus III",
-      "credits": 3,
-      "term": "F2",
-      "pw": 5,
+      "pw": 1,
       "prerequisites": [
-        "MATH181"
+        "ENGL160"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -355,14 +897,60 @@
       ]
     },
     {
-      "code": "IE201",
-      "name": "Financial Engineering",
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "S1",
+      "pw": 2,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "S1",
+      "pw": 2,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
       "credits": 3,
       "term": "F2",
-      "pw": 3,
+      "pw": 5,
       "prerequisites": [
-        "MATH181",
-        "PHYS141"
+        "MATH181"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -389,14 +977,13 @@
       ]
     },
     {
-      "code": "PHYS142",
-      "name": "Physics II: E&M",
-      "credits": 4,
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
       "term": "F2",
-      "pw": 1,
+      "pw": 3,
       "prerequisites": [
-        "MATH181",
-        "PHYS141"
+        "MATH181"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -411,11 +998,29 @@
       "credits": 3,
       "term": "F2",
       "pw": 2,
-      "prerequisites": [
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [
         "MATH180"
       ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "pw": 1,
+      "prerequisites": [
+        "PHYS141"
+      ],
       "corequisites": [],
-      "concurrentPrereqs": [],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
       "offeredIn": [
         "Fall",
         "Spring"
@@ -423,7 +1028,7 @@
     },
     {
       "code": "MATH220",
-      "name": "Differential Equations",
+      "name": "Introduction to Differential Equations",
       "credits": 3,
       "term": "S2",
       "pw": 4,
@@ -454,6 +1059,38 @@
       ]
     },
     {
+      "code": "ME210",
+      "name": "Dynamics",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "CME201"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
       "code": "ME205",
       "name": "Intro to Thermodynamics",
       "credits": 3,
@@ -471,58 +1108,11 @@
       ]
     },
     {
-      "code": "MATH310",
-      "name": "Applied Linear Algebra",
-      "credits": 3,
-      "term": "S2",
-      "pw": 2,
-      "prerequisites": [
-        "MATH181"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "GENED2",
-      "name": "Gen Ed #2",
-      "credits": 3,
-      "term": "S2",
-      "pw": 1,
-      "prerequisites": [],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ],
-      "isPlaceholder": true
-    },
-    {
-      "code": "ME210",
-      "name": "Dynamics",
+      "code": "ME347",
+      "name": "Engineering Design and Graphics",
       "credits": 3,
       "term": "F3",
       "pw": 3,
-      "prerequisites": [
-        "CME201"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "ME211",
-      "name": "Fluid Mechanics",
-      "credits": 4,
-      "term": "F3",
-      "pw": 2,
       "prerequisites": [
         "MATH220",
         "CME203",
@@ -536,14 +1126,14 @@
       ]
     },
     {
-      "code": "ME328",
-      "name": "Numerical Methods",
-      "credits": 3,
+      "code": "ME211",
+      "name": "Fluid Mechanics",
+      "credits": 4,
       "term": "F3",
-      "pw": 1,
+      "pw": 3,
       "prerequisites": [
-        "CS109",
-        "MATH310"
+        "MATH220",
+        "PHYS141"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -559,7 +1149,7 @@
       "term": "F3",
       "pw": 1,
       "prerequisites": [
-        "CME203"
+        "ME210"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -576,7 +1166,8 @@
       "pw": 1,
       "prerequisites": [
         "CME203",
-        "ME250"
+        "CHEM122",
+        "CHEM123"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
@@ -601,44 +1192,11 @@
       "isPlaceholder": true
     },
     {
-      "code": "ME347",
-      "name": "Engineering Design and Graphics",
-      "credits": 3,
-      "term": "S3",
-      "pw": 3,
-      "prerequisites": [
-        "MATH220",
-        "PHYS141"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "ME321",
-      "name": "Heat Transfer",
-      "credits": 4,
-      "term": "S3",
-      "pw": 1,
-      "prerequisites": [
-        "ME210"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
       "code": "ME370",
       "name": "Mechanical Engineering Design",
       "credits": 3,
       "term": "S3",
-      "pw": 1,
+      "pw": 3,
       "prerequisites": [
         "CME203",
         "ME250"
@@ -651,8 +1209,60 @@
       ]
     },
     {
-      "code": "GENED4",
-      "name": "Gen Ed #4",
+      "code": "IE342",
+      "name": "Probability & Stats for Engr",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME328",
+      "name": "Numerical Methods",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "CS109"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "MATH218"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME321",
+      "name": "Heat Transfer",
+      "credits": 4,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "ME205"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "ME211"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
       "credits": 3,
       "term": "S3",
       "pw": 1,
@@ -666,90 +1276,8 @@
       "isPlaceholder": true
     },
     {
-      "code": "ME312",
-      "name": "Dynamic Systems and Control",
-      "credits": 3,
-      "term": "F4",
-      "pw": 1,
-      "prerequisites": [
-        "MATH220",
-        "CS109"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [
-        "ECE210"
-      ],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "ME341",
-      "name": "Experimental Methods in Mechanical Engineering",
-      "credits": 3,
-      "term": "F4",
-      "pw": 1,
-      "prerequisites": [
-        "CME203",
-        "ME211"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "IE342",
-      "name": "Probability & Stats for Engr",
-      "credits": 3,
-      "term": "F4",
-      "pw": 1,
-      "prerequisites": [
-        "MATH181"
-      ],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ]
-    },
-    {
-      "code": "TECH1",
-      "name": "Technical Elective #1",
-      "credits": 3,
-      "term": "F4",
-      "pw": 1,
-      "prerequisites": [],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ],
-      "isPlaceholder": true
-    },
-    {
-      "code": "GENED5",
-      "name": "Gen Ed #5",
-      "credits": 3,
-      "term": "F4",
-      "pw": 1,
-      "prerequisites": [],
-      "corequisites": [],
-      "concurrentPrereqs": [],
-      "offeredIn": [
-        "Fall",
-        "Spring"
-      ],
-      "isPlaceholder": true
-    },
-    {
       "code": "ME396",
-      "name": "Senior Design I (Fall Only)",
+      "name": "Senior Design I",
       "credits": 3,
       "term": "F4",
       "pw": 2,
@@ -758,14 +1286,80 @@
         "ME347"
       ],
       "corequisites": [],
-      "concurrentPrereqs": [],
+      "concurrentPrereqs": [
+        "ME211",
+        "ME370"
+      ],
       "offeredIn": [
         "Fall"
       ]
     },
     {
+      "code": "ME312",
+      "name": "Dynamic Systems and Control",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "MATH220",
+        "CS109",
+        "ECE210"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "FREEELEC",
+      "name": "Free Elective",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
       "code": "ME397",
-      "name": "Senior Design II (Spring Only)",
+      "name": "Senior Design II",
       "credits": 3,
       "term": "S4",
       "pw": 1,
@@ -779,29 +1373,26 @@
       ]
     },
     {
-      "code": "ME499",
-      "name": "Undergrad Degree Audit (0 cr)",
-      "credits": 0,
+      "code": "ME341",
+      "name": "Experimental Methods in Mechanical Engineering",
+      "credits": 3,
       "term": "S4",
       "pw": 1,
       "prerequisites": [
-        "ME397"
+        "CME203",
+        "ME211"
       ],
       "corequisites": [],
       "concurrentPrereqs": [],
       "offeredIn": [
+        "Fall",
         "Spring"
-      ],
-      "recommendationGate": {
-        "afterCompleted": [
-          "ME396"
-        ]
-      }
+      ]
     },
     {
-      "code": "TECH2",
-      "name": "Technical Elective #2",
-      "credits": 3,
+      "code": "ME499",
+      "name": "Undergrad Degree Audit (0 cr)",
+      "credits": 0,
       "term": "S4",
       "pw": 1,
       "prerequisites": [],
@@ -811,7 +1402,11 @@
         "Fall",
         "Spring"
       ],
-      "isPlaceholder": true
+      "recommendationGate": {
+        "afterCompleted": [
+          "ME396"
+        ]
+      }
     },
     {
       "code": "TECH3",
@@ -844,8 +1439,8 @@
       "isPlaceholder": true
     },
     {
-      "code": "FREEELEC",
-      "name": "Free Elective",
+      "code": "GENED5",
+      "name": "Gen Ed #5",
       "credits": 3,
       "term": "S4",
       "pw": 1,
@@ -3868,11 +4463,16 @@
     let ENHANCED = [];
     const codeMap = new Map();
     let taken = new Set();
-    let showOnlyEligible = false;
+    let viewFilter = 'all';
     let targetTerm = 'Fall';
     let terminals = new Set();
     const TERM_ORDER = ['F1', 'S1', 'F2', 'S2', 'F3', 'S3', 'F4', 'S4'];
     const DISCLAIMER_ACK_KEY = 'plannerDisclaimerAcknowledged';
+    const LAST_CURRICULUM_KEY = 'lastCurriculumId';
+    const decisionModalState = {
+      resolve: null,
+      restoreFocusEl: null
+    };
 
     // List of available curricula
     const CURRICULA = [
@@ -3882,6 +4482,40 @@
       { id: 'mechanical-engineering-2017-2024', name: 'Mechanical Engineering (Fall 2017 to Spring 2024)' },
       { id: 'industrial-engineering-2017-2024', name: 'Industrial Engineering (Fall 2017 to Spring 2024)' }
     ];
+    const GENED_CATEGORY_LABELS = {
+      'mechanical-engineering': {
+        GENED1: 'Understanding the Individual and Society',
+        GENED2: 'Understanding the Past',
+        GENED3: 'Understanding the Creative Arts',
+        GENED4: 'Exploring World Cultures',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'mechanical-engineering-2017-2024': {
+        GENED1: 'Understanding the Individual and Society',
+        GENED2: 'Understanding the Past',
+        GENED3: 'Understanding the Creative Arts',
+        GENED4: 'Exploring World Cultures',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'industrial-engineering': {
+        GENED1: 'Understanding the Individual and Society',
+        GENED2: 'Understanding the Past',
+        GENED3: 'Understanding the Creative Arts',
+        GENED4: 'Exploring World Cultures',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'industrial-engineering-2017-2024': {
+        GENED1: 'Understanding the Individual and Society',
+        GENED2: 'Understanding the Past',
+        GENED3: 'Understanding the Creative Arts',
+        GENED4: 'Exploring World Cultures'
+      },
+      'engineering-management': {
+        GENED1: 'Understanding the Past',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Exploring World Cultures'
+      }
+    };
 
     // -----------------------------
     // Curriculum Data Loader
@@ -3940,16 +4574,34 @@
       }
     }
 
+    function resolveStoredCurriculumId(curriculumId) {
+      return CURRICULA.some(c => c.id === curriculumId) ? curriculumId : null;
+    }
+
     function defaultCurriculumId() {
-      return CURRICULA[0].id;
+      return resolveStoredCurriculumId(localStorage.getItem(LAST_CURRICULUM_KEY)) || CURRICULA[0].id;
     }
 
     function curriculumStorageKey(curriculumId) {
       return `takenCourses:${curriculumId}`;
     }
 
+    function setLastCurriculumId(curriculumId) {
+      localStorage.setItem(LAST_CURRICULUM_KEY, curriculumId);
+    }
+
     function disclaimerAcknowledged() {
       return localStorage.getItem(DISCLAIMER_ACK_KEY) === 'true';
+    }
+
+    function bodyShouldBeLocked() {
+      const decisionModal = document.getElementById('decisionModal');
+      const decisionOpen = decisionModal && !decisionModal.classList.contains('hidden');
+      return !disclaimerAcknowledged() || decisionOpen;
+    }
+
+    function updateBodyLockState() {
+      document.body.classList.toggle('overflow-hidden', bodyShouldBeLocked());
     }
 
     function updateDisclaimerVisibility() {
@@ -3957,7 +4609,7 @@
       const acknowledged = disclaimerAcknowledged();
       modal.classList.toggle('hidden', acknowledged);
       modal.classList.toggle('flex', !acknowledged);
-      document.body.classList.toggle('overflow-hidden', !acknowledged);
+      updateBodyLockState();
     }
 
     function acknowledgeDisclaimer() {
@@ -3984,12 +4636,32 @@
       return CURRICULA.find(c => c.id === curriculumId)?.name || curriculumId;
     }
 
+    function displayCourseName(course, curriculumId=currentCurriculum?.metadata?.id) {
+      return GENED_CATEGORY_LABELS[curriculumId]?.[course.code] || course.name;
+    }
+
     function updatePageMetadata(data) {
       const name = data.metadata?.name || 'UIC MIE';
       document.title = `${name} Flowchart — Interactive Planner`;
       document.getElementById('plannerTitle').textContent = `${name} Flowchart — Interactive Planner`;
       document.getElementById('plannerSubtitle').textContent =
-        'Click a course to mark it taken. Green = eligible now (considers coreqs & concurrent prereqs). Red ring = terminal (no dependents). Recommendations cap at 18 credits for the selected term.';
+        'Choose a curriculum, mark the courses you have already finished, and review a next-term recommendation that respects offerings, prerequisites, corequisites, and planner priority.';
+      document.getElementById('curriculumMetaTitle').textContent = name;
+      document.getElementById('curriculumMetaDescription').textContent =
+        data.metadata?.description || 'Static curriculum planner data loaded successfully.';
+      document.getElementById('curriculumMetaVersion').textContent = `Version ${data.metadata?.version || '1.0'}`;
+      document.getElementById('curriculumMetaUpdated').textContent = `Updated ${data.metadata?.lastUpdated || 'unknown'}`;
+    }
+
+    function updateProgressStatus(curriculumId, loadedCount) {
+      const status = document.getElementById('progressStatus');
+      if (!status) return;
+
+      if (loadedCount > 0) {
+        status.textContent = `Loaded ${loadedCount} saved ${loadedCount === 1 ? 'course' : 'courses'} for ${curriculumName(curriculumId)}.`;
+      } else {
+        status.textContent = `No saved progress yet for ${curriculumName(curriculumId)}.`;
+      }
     }
 
     function termSeason(termId) {
@@ -4006,6 +4678,7 @@
         const data = await loadCurriculumData(curriculumId);
         currentCurriculum = data;
         const loadedTaken = loadTakenCourses(curriculumId);
+        setLastCurriculumId(curriculumId);
 
         // Build codeMap
         ENHANCED = data.courses.map(c => ({
@@ -4026,6 +4699,7 @@
         // Update selector to show current selection
         populateCurriculumSelector(data);
         updatePageMetadata(data);
+        updateProgressStatus(curriculumId, taken.size);
 
         // Update target term options if needed
         if (data.terms) {
@@ -4118,6 +4792,19 @@
       return (courseIndex - anchorIndex + TERM_ORDER.length) % TERM_ORDER.length;
     }
 
+    function courseMatchesViewFilter(course, takenSet, termLabel, courses) {
+      switch (viewFilter) {
+        case 'eligible':
+          return eligibleNow(course, takenSet, termLabel) && !takenSet.has(course.code);
+        case 'untaken':
+          return !takenSet.has(course.code);
+        case 'current-term':
+          return course.term === findAnchorTerm(courses, takenSet, termLabel);
+        default:
+          return true;
+      }
+    }
+
     function isFinalTermRecommendationReady(course, takenSet, courses) {
       return courses.every(other =>
         other.code === course.code ||
@@ -4151,7 +4838,11 @@
     function nextEligible(courses, takenSet, termLabel) {
       const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
       return courses
-        .filter(c => eligibleNow(c, takenSet, termLabel) && recommendationGateMet(c, takenSet, courses))
+        .filter(c =>
+          eligibleNow(c, takenSet, termLabel)
+          && recommendationGateMet(c, takenSet, courses)
+          && courseMatchesViewFilter(c, takenSet, termLabel, courses)
+        )
         .sort((a,b) => compareRecommendationPriority(a, b, anchorTerm));
     }
 
@@ -4223,15 +4914,180 @@
       return { list, credits };
     }
 
+    function getMissingHardPrerequisites(course, completedSet) {
+      return (course.prerequisites || []).filter(code => !completedSet.has(code));
+    }
+
+    function collectPrereqViolations(courseCodes, completedSet, lookup=codeMap) {
+      const uniqueCodes = Array.from(new Set(courseCodes));
+      return uniqueCodes
+        .map(code => {
+          const course = lookup.get(code);
+          if (!course) return null;
+          const missingPrereqs = getMissingHardPrerequisites(course, completedSet);
+          if (missingPrereqs.length === 0) return null;
+          return {
+            courseCode: course.code,
+            courseName: course.name,
+            missingPrereqs
+          };
+        })
+        .filter(Boolean);
+    }
+
+    function formatViolationListHtml(violations, limit=4) {
+      const visibleViolations = violations.slice(0, limit);
+      const items = visibleViolations.map(violation =>
+        `<li><strong>${escapeXml(violation.courseCode)}</strong>: missing ${escapeXml(violation.missingPrereqs.join(', '))}</li>`
+      ).join('');
+      const overflowCount = violations.length - visibleViolations.length;
+      const overflowHtml = overflowCount > 0
+        ? `<p>And ${overflowCount} more ${overflowCount === 1 ? 'course' : 'courses'} with missing prerequisites.</p>`
+        : '';
+      return `<ul class="decision-list">${items}</ul>${overflowHtml}`;
+    }
+
+    function buildSelectionConfirmationContent(violations) {
+      if (violations.length === 1) {
+        const [{ courseCode, missingPrereqs }] = violations;
+        const prereqLabel = missingPrereqs.length === 1 ? 'prerequisite' : 'prerequisites';
+        return {
+          title: 'Select Course Without Prerequisites?',
+          bodyHtml: `
+            <p>You should not take or have taken <strong>${escapeXml(courseCode)}</strong> without completed ${prereqLabel} <strong>${escapeXml(missingPrereqs.join(', '))}</strong>.</p>
+            <p>Do you wish to proceed even though the college may not allow it?</p>
+          `
+        };
+      }
+
+      return {
+        title: 'Select Courses Without Prerequisites?',
+        bodyHtml: `
+          <p>You are about to mark courses as completed even though one or more hard prerequisites are not completed yet.</p>
+          ${formatViolationListHtml(violations)}
+          <p>Do you wish to proceed even though the college may not allow it?</p>
+        `
+      };
+    }
+
+    function buildImportConfirmationContent(violations) {
+      return {
+        title: 'Import Plan With Missing Prerequisites?',
+        bodyHtml: `
+          <p>This imported plan includes courses whose hard prerequisites are not present in the imported record.</p>
+          ${formatViolationListHtml(violations, 5)}
+          <p>Do you wish to proceed even though the college may not allow this course history?</p>
+        `
+      };
+    }
+
+    function closeDecisionModal({ restoreFocus=true } = {}) {
+      const modal = document.getElementById('decisionModal');
+      if (!modal) return;
+
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      updateBodyLockState();
+
+      if (restoreFocus && decisionModalState.restoreFocusEl && typeof decisionModalState.restoreFocusEl.focus === 'function') {
+        decisionModalState.restoreFocusEl.focus();
+      }
+
+      decisionModalState.restoreFocusEl = null;
+    }
+
+    function settleDecisionModal(confirmed) {
+      const resolver = decisionModalState.resolve;
+      decisionModalState.resolve = null;
+      closeDecisionModal();
+      if (resolver) {
+        resolver(confirmed);
+      }
+    }
+
+    function openDecisionModal({ title, bodyHtml, confirmLabel='Yes', cancelLabel='No' }) {
+      const modal = document.getElementById('decisionModal');
+      const titleEl = document.getElementById('decisionTitle');
+      const bodyEl = document.getElementById('decisionBody');
+      const confirmBtn = document.getElementById('decisionConfirmBtn');
+      const cancelBtn = document.getElementById('decisionCancelBtn');
+
+      if (!modal || !titleEl || !bodyEl || !confirmBtn || !cancelBtn) {
+        return Promise.resolve(false);
+      }
+
+      if (decisionModalState.resolve) {
+        settleDecisionModal(false);
+      }
+
+      titleEl.textContent = title;
+      bodyEl.innerHTML = bodyHtml;
+      confirmBtn.textContent = confirmLabel;
+      cancelBtn.textContent = cancelLabel;
+      decisionModalState.restoreFocusEl = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      updateBodyLockState();
+
+      return new Promise(resolve => {
+        decisionModalState.resolve = resolve;
+        requestAnimationFrame(() => confirmBtn.focus());
+      });
+    }
+
+    async function confirmPrerequisiteOverride(mode, violations) {
+      if (!violations.length) return true;
+      const content = mode === 'import'
+        ? buildImportConfirmationContent(violations)
+        : buildSelectionConfirmationContent(violations);
+      return openDecisionModal(content);
+    }
+
+    function handleDecisionModalKeydown(event) {
+      const modal = document.getElementById('decisionModal');
+      if (!modal || modal.classList.contains('hidden')) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        settleDecisionModal(false);
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = [
+        document.getElementById('decisionCancelBtn'),
+        document.getElementById('decisionConfirmBtn')
+      ].filter(Boolean);
+
+      if (focusable.length === 0) return;
+
+      const currentIndex = focusable.indexOf(document.activeElement);
+      const movingBackward = event.shiftKey;
+      const nextIndex = movingBackward
+        ? (currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1)
+        : (currentIndex === -1 || currentIndex >= focusable.length - 1 ? 0 : currentIndex + 1);
+
+      event.preventDefault();
+      focusable[nextIndex].focus();
+    }
+
     // -----------------------------
     // Warning Display
     // -----------------------------
     function showWarning(message) {
       const box = document.getElementById('warningBox');
+      const text = document.getElementById('warningMessage');
+      if (!box || !text) return;
+      text.textContent = message;
+      box.classList.remove('hidden');
+    }
+
+    function dismissWarning() {
+      const box = document.getElementById('warningBox');
       if (box) {
-        box.textContent = message;
-        box.classList.remove('hidden');
-        setTimeout(() => box.classList.add('hidden'), 5000);
+        box.classList.add('hidden');
       }
     }
 
@@ -4249,6 +5105,49 @@
       if (curriculumId === 'mechanical-engineering') {
         localStorage.setItem('takenCourses', serialized);
       }
+
+      updateProgressStatus(curriculumId, taken.size);
+    }
+
+    function buildPlanExportPayload(curriculumId, curriculumDisplayName, currentTargetTerm, takenSet) {
+      return {
+        curriculumId,
+        curriculumName: curriculumDisplayName,
+        targetTerm: currentTargetTerm,
+        taken: Array.from(takenSet)
+      };
+    }
+
+    function downloadPlannerJson() {
+      const curriculumId = currentCurriculum?.metadata?.id || defaultCurriculumId();
+      const payload = buildPlanExportPayload(
+        curriculumId,
+        currentCurriculum?.metadata?.name || curriculumName(curriculumId),
+        targetTerm,
+        taken
+      );
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${curriculumId}-plan.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function recommendationReasons(course, courses, takenSet, termLabel) {
+      const reasons = [];
+      const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
+      const dependents = buildGraph(courses).prereqOf.get(course.code)?.size || 0;
+      const bundleSize = ensureBundle(course, takenSet).length;
+
+      if (course.term === anchorTerm) reasons.push('next flowchart term');
+      if (isOfferedThisTerm(course, termLabel)) reasons.push('offered now');
+      if (bundleSize > 1) reasons.push('coreq bundle');
+      if (dependents > 0) reasons.push(`unlocks ${dependents} later ${dependents === 1 ? 'course' : 'courses'}`);
+      if (course.pw >= 4) reasons.push('high priority');
+
+      return reasons.slice(0, 3);
     }
 
     function escapeXml(value) {
@@ -4346,7 +5245,8 @@
             const isRecommended = recommendationSet.has(course.code);
             const fill = isTaken ? '#e2e8f0' : '#ffffff';
             const stroke = isTaken ? '#94a3b8' : '#cbd5e1';
-            const nameLines = wrapSvgText(course.name, 28, 2);
+            const displayName = displayCourseName(course, curriculum.metadata?.id);
+            const nameLines = wrapSvgText(displayName, 28, 2);
 
             svgParts.push(`<g data-course="${escapeXml(course.code)}" data-taken="${isTaken}" data-recommended="${isRecommended}">`);
             svgParts.push(`<rect x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" rx="14" fill="${fill}" stroke="${stroke}"/>`);
@@ -4419,29 +5319,32 @@
     // Rendering
     // -----------------------------
     function courseBox(course, opts={}) {
-      const { isEligible=false } = opts;
+      const { isEligible=false, reasonChips=[] } = opts;
       const isTaken = taken.has(course.code);
       const isTerminal = terminals.has(course.code);
-      const cls = [
-        'relative w-full text-left rounded-2xl p-3 border transition card',
-        isTaken ? 'bg-gray-200 border-gray-300 line-through opacity-70' : isEligible ? 'bg-emerald-50 border-emerald-300' : 'bg-white border-gray-200',
-        isTerminal && !isTaken ? 'ring-1 ring-red-300' : ''
-      ].join(' ');
-      const prereqText = (course.prereqObjs||[]).length ? ('prereqs: ' + course.prereqObjs.map(p => p.code + (p.concurrent ? ' (concur)' : '')).join(', ')) : 'no prereqs';
+      const state = isTaken ? 'taken' : isEligible ? 'eligible' : 'locked';
+      const displayName = displayCourseName(course);
+      const prereqText = (course.prereqObjs||[]).length
+        ? ('Prereqs: ' + course.prereqObjs.map(p => p.code + (p.concurrent ? ' (concur)' : '')).join(', '))
+        : 'No prerequisites';
       const el = document.createElement('button');
-      el.className = cls;
-      el.title = course.name;
+      el.className = 'course-card';
+      el.dataset.state = state;
+      el.dataset.terminal = String(isTerminal && !isTaken);
+      el.title = displayName;
       el.innerHTML = `
-        <div class="flex items-center justify-between">
-          <div class="font-semibold text-sm tracking-wide">${course.code}</div>
-          <div class="text-xs opacity-70">${course.credits} cr</div>
+        <div class="flex items-start justify-between gap-3">
+          <div class="font-semibold text-base tracking-wide">${course.code}</div>
+          <div class="shrink-0 text-sm text-[var(--ink-muted)]">${course.credits} cr</div>
         </div>
-        <div class="text-xs mt-1">${course.name}</div>
-        <div class="mt-2 flex items-center flex-wrap gap-2">
-          <span class="badge bg-gray-50 border-gray-100">${prereqText}</span>
-          <span class="badge bg-blue-50 border-blue-200">PW: ${course.pw}</span>
-          ${isTerminal && !isTaken ? '<span class="badge bg-red-50 border-red-200">terminal</span>' : ''}
-          ${isEligible && !isTaken ? '<span class="badge bg-emerald-100 border-emerald-200">eligible</span>' : ''}
+        <div class="text-sm mt-1.5 leading-5 font-semibold text-[var(--ink)]">${displayName}</div>
+        <div class="badge prereq-badge mt-3">${prereqText}</div>
+        <div class="mt-3 flex items-center flex-wrap gap-2">
+          <span class="badge priority-badge">Priority ${course.pw}</span>
+          ${isTaken ? '<span class="badge meta-badge">taken</span>' : ''}
+          ${isTerminal && !isTaken ? '<span class="badge terminal-badge">terminal</span>' : ''}
+          ${isEligible && !isTaken ? '<span class="badge eligible-badge">eligible now</span>' : ''}
+          ${reasonChips.map(reason => `<span class="badge reason-badge">${reason}</span>`).join('')}
         </div>`;
       el.addEventListener('click', () => { toggle(course.code); });
       return el;
@@ -4449,7 +5352,7 @@
 
     function renderRecommendation() {
       const rec = packRecommendation(ENHANCED, taken, targetTerm, 18);
-      document.getElementById('recCredits').textContent = `Total credits: ${rec.credits}`;
+      document.getElementById('recCredits').textContent = `Planning for ${targetTerm} · ${rec.credits} credits`;
       const grid = document.getElementById('recGrid');
       const empty = document.getElementById('recEmpty');
       grid.innerHTML = '';
@@ -4457,7 +5360,10 @@
         empty.classList.remove('hidden');
       } else {
         empty.classList.add('hidden');
-        rec.list.forEach(c => grid.appendChild(courseBox(c, { isEligible: eligibleNow(c, taken, targetTerm) })));
+        rec.list.forEach(c => grid.appendChild(courseBox(c, {
+          isEligible: eligibleNow(c, taken, targetTerm),
+          reasonChips: recommendationReasons(c, ENHANCED, taken, targetTerm)
+        })));
       }
     }
 
@@ -4470,7 +5376,10 @@
         empty.classList.remove('hidden');
       } else {
         empty.classList.add('hidden');
-        list.slice(0, 12).forEach(c => grid.appendChild(courseBox(c, { isEligible: true })));
+        list.forEach(c => grid.appendChild(courseBox(c, {
+          isEligible: true,
+          reasonChips: recommendationReasons(c, ENHANCED, taken, targetTerm)
+        })));
       }
     }
 
@@ -4480,21 +5389,39 @@
       const map = new Map();
       (currentCurriculum?.terms || []).forEach(t => map.set(t.id, []));
       ENHANCED.forEach(c => { if (!map.has(c.term)) map.set(c.term, []); map.get(c.term).push(c); });
-      (currentCurriculum?.terms || []).forEach(t => map.get(t.id).sort((a,b)=> b.pw - a.pw || a.code.localeCompare(b.code)));
+      const anchorTerm = findAnchorTerm(ENHANCED, taken, targetTerm);
+      (currentCurriculum?.terms || []).forEach(t => map.get(t.id).sort((a,b)=> compareRecommendationPriority(a, b, anchorTerm)));
 
       for (const t of (currentCurriculum?.terms || [])) {
-        const card = document.createElement('div');
-        card.className = 'rounded-2xl border bg-white/70 backdrop-blur p-4 card';
-        const header = document.createElement('div');
-        header.className = 'flex items-baseline justify-between mb-3';
-        header.innerHTML = `<h3 class="font-semibold">${t.title}</h3>
-          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 border">${(map.get(t.id)||[]).length} courses</span>`;
+        const card = document.createElement('details');
+        card.className = 'terms-accordion surface-panel-muted p-4 md:p-5';
+        card.open = true;
+        const header = document.createElement('summary');
+        header.className = 'mb-3';
+        header.innerHTML = `<div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="helper-kicker mb-1">${t.id === anchorTerm ? 'Next flowchart term' : 'Flowchart term'}</div>
+            <h3 class="text-xl font-bold text-[var(--ink)]">${t.title}</h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="badge meta-badge">${(map.get(t.id)||[]).length} courses</span>
+            <span class="accordion-indicator text-xl text-[var(--ink-soft)]">›</span>
+          </div>
+        </div>`;
         const list = document.createElement('div');
         list.className = 'flex flex-col gap-3';
 
-        (map.get(t.id)||[])
-          .filter(c => showOnlyEligible ? eligibleNow(c, taken, targetTerm) && !taken.has(c.code) : true)
-          .forEach(c => list.appendChild(courseBox(c, { isEligible: eligibleNow(c, taken, targetTerm) })));
+        const filtered = (map.get(t.id)||[])
+          .filter(c => courseMatchesViewFilter(c, taken, targetTerm, ENHANCED));
+
+        if (filtered.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-state';
+          empty.textContent = 'No courses in this term match the current filter.';
+          list.appendChild(empty);
+        } else {
+          filtered.forEach(c => list.appendChild(courseBox(c, { isEligible: eligibleNow(c, taken, targetTerm) })));
+        }
 
         card.appendChild(header);
         card.appendChild(list);
@@ -4511,17 +5438,25 @@
     // -----------------------------
     // Actions
     // -----------------------------
-    function toggle(code) {
+    async function toggle(code) {
       if (taken.has(code)) {
         const bundle = getCoreqBundle(code, taken);
         bundle.forEach(c => taken.delete(c));
         if (bundle.length > 1) {
-          showWarning(`Deselected ${code} and its corequisites`);
+          showWarning(`Deselected ${code} and its bundled corequisites.`);
         }
       } else {
         const bundle = getCoreqBundle(code, taken);
+        const violations = collectPrereqViolations(bundle, taken);
+        if (violations.length) {
+          const shouldProceed = await confirmPrerequisiteOverride('selection', violations);
+          if (!shouldProceed) {
+            showWarning(`Left ${code} unselected because its hard prerequisites are not completed.`);
+            return;
+          }
+        }
         if (bundle.length > 1) {
-          showWarning(`${code} has corequisites that were automatically selected`);
+          showWarning(`${code} added a bundled corequisite or concurrent course automatically.`);
         }
         bundle.forEach(c => taken.add(c));
       }
@@ -4538,6 +5473,7 @@
     document.getElementById('resetBtn').addEventListener('click', () => {
       taken.clear();
       save();
+      showWarning(`Cleared saved progress for ${currentCurriculum?.metadata?.name || 'the current curriculum'}.`);
       renderAll();
     });
 
@@ -4545,14 +5481,30 @@
       downloadPlannerImage();
     });
 
+    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+      downloadPlannerJson();
+    });
+
     document.getElementById('disclaimerAgreeBtn').addEventListener('click', () => {
       acknowledgeDisclaimer();
+    });
+
+    document.getElementById('decisionConfirmBtn').addEventListener('click', () => {
+      settleDecisionModal(true);
+    });
+
+    document.getElementById('decisionCancelBtn').addEventListener('click', () => {
+      settleDecisionModal(false);
+    });
+
+    document.getElementById('warningDismissBtn').addEventListener('click', () => {
+      dismissWarning();
     });
 
     document.getElementById('importInput').addEventListener('change', (e) => {
       const file = e.target.files?.[0]; if (!file) return;
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         try {
           const obj = JSON.parse(reader.result);
           if (!obj || !Array.isArray(obj.taken)) return;
@@ -4563,11 +5515,29 @@
             return;
           }
 
-          const validCodes = obj.taken.filter(code => codeMap.has(code));
-          taken = new Set(validCodes);
+          const unknownCodeCount = obj.taken.filter(code => !codeMap.has(code)).length;
+          const importedSet = new Set(obj.taken.filter(code => codeMap.has(code)));
+          const violations = collectPrereqViolations(Array.from(importedSet), importedSet);
 
-          if (validCodes.length !== obj.taken.length) {
-            showWarning('Skipped imported courses that are not part of the current curriculum.');
+          if (violations.length) {
+            const shouldProceed = await confirmPrerequisiteOverride('import', violations);
+            if (!shouldProceed) {
+              showWarning('Import cancelled because one or more courses are missing hard prerequisites.');
+              return;
+            }
+          }
+
+          taken = importedSet;
+          const importedCount = importedSet.size;
+
+          if (unknownCodeCount > 0 && violations.length > 0) {
+            showWarning(`Imported ${importedCount} saved ${importedCount === 1 ? 'course' : 'courses'} with a prerequisite override. Skipped ${unknownCodeCount} course ${unknownCodeCount === 1 ? 'entry' : 'entries'} that are not part of the current curriculum.`);
+          } else if (unknownCodeCount > 0) {
+            showWarning(`Imported ${importedCount} saved ${importedCount === 1 ? 'course' : 'courses'} and skipped ${unknownCodeCount} course ${unknownCodeCount === 1 ? 'entry' : 'entries'} that are not part of the current curriculum.`);
+          } else if (violations.length > 0) {
+            showWarning(`Imported ${importedCount} saved ${importedCount === 1 ? 'course' : 'courses'} with a prerequisite override.`);
+          } else {
+            showWarning(`Imported ${importedCount} saved ${importedCount === 1 ? 'course' : 'courses'} into ${currentCurriculum?.metadata?.name || 'the current curriculum'}.`);
           }
 
           save();
@@ -4580,13 +5550,16 @@
       e.target.value = '';
     });
 
-    document.getElementById('eligibleOnly').addEventListener('change', (e) => {
-      showOnlyEligible = e.target.checked; renderAll();
+    document.getElementById('viewFilter').addEventListener('change', (e) => {
+      viewFilter = e.target.value;
+      renderAll();
     });
 
     document.getElementById('targetTerm').addEventListener('change', (e) => {
       targetTerm = e.target.value; renderAll();
     });
+
+    document.addEventListener('keydown', handleDecisionModalKeydown);
 
     // Initialize with first curriculum
     updateDisclaimerVisibility();
