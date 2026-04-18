@@ -11,15 +11,38 @@
     .card { box-shadow: 0 1px 2px rgba(0,0,0,.05); }
     .btn { @apply px-3 py-2 rounded-xl border bg-white hover:bg-gray-50; }
     .badge { @apply text-[10px] px-1.5 py-0.5 rounded border; }
-    .curriculum-selector { @apply p-3 rounded-2xl bg-white border; }
+    .curriculum-selector { @apply p-6 rounded-3xl bg-white border-2 border-slate-300 shadow-sm max-w-2xl mx-auto text-center; }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800 p-6">
+  <div id="disclaimerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 px-4">
+    <div class="w-full max-w-3xl rounded-3xl border-2 border-amber-300 bg-white p-7 shadow-2xl">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">Experimental Tool Warning</h2>
+      <p class="mt-4 text-base font-semibold text-slate-900">
+        This is an experimental tool. It is not affiliated with UIC, the College of Engineering, MIE, or any other UIC unit.
+      </p>
+      <p class="mt-3 text-base text-slate-800">
+        This is a personal project of a human being who has weekend hobbies.
+      </p>
+      <p class="mt-3 text-base text-slate-800">
+        There is no guarantee or warranty that the recommendations are correct, complete, or appropriate for your situation. There is also no guarantee or warranty that no harm will come from following this tool's output.
+      </p>
+      <p class="mt-3 text-base font-bold text-slate-900">
+        Use this tool entirely at your own risk. Always verify decisions against official UIC advising, catalog, and flowchart sources.
+      </p>
+      <div class="mt-6 flex justify-end">
+        <button id="disclaimerAgreeBtn" class="rounded-2xl border border-amber-500 bg-amber-500 px-6 py-3 text-base font-bold text-white shadow-sm hover:bg-amber-600">
+          I Agree
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="mx-auto max-w-7xl">
     <!-- Curriculum Selector -->
-    <div class="curriculum-selector mb-4">
-      <label class="text-sm font-semibold opacity-70 block mb-2">Curriculum</label>
-      <select id="curriculumSelector" class="px-4 py-2 border rounded-xl text-base w-full md:w-auto">
+    <div class="curriculum-selector mb-6">
+      <label class="text-lg md:text-xl font-bold tracking-wide block mb-3">Curriculum Selection</label>
+      <select id="curriculumSelector" class="px-6 py-3 border-2 border-slate-400 rounded-2xl text-lg md:text-xl font-bold text-center w-full md:w-auto min-w-[22rem] max-w-full">
         <option value="mechanical-engineering">Mechanical Engineering</option>
         <option value="industrial-engineering">Industrial Engineering</option>
         <option value="engineering-management">Engineering Management</option>
@@ -84,8 +107,23 @@
       </div>
     </section>
 
-    <footer class="mt-10 text-xs opacity-60">
-      <p>This planner encodes example concurrency and offering rules; verify against the official catalog/flowchart.</p>
+    <footer class="mt-10 space-y-4">
+      <section class="rounded-3xl border-2 border-amber-300 bg-amber-50 px-6 py-5 text-sm text-amber-950 shadow-sm">
+        <h2 class="text-lg font-extrabold tracking-tight mb-2">Experimental Tool Warning</h2>
+        <p class="font-semibold">
+          This tool is experimental and is not affiliated with UIC, the College of Engineering, MIE, or any other UIC unit.
+        </p>
+        <p class="mt-2">
+          It is a personal project of a human being who has weekend hobbies.
+        </p>
+        <p class="mt-2">
+          There is no guarantee or warranty that the recommendations are correct, complete, or safe, and no guarantee or warranty that no harm will come from following this tool's output.
+        </p>
+        <p class="mt-2 font-bold">
+          Use at your own risk. Always verify everything against official UIC advising, catalog, and flowchart sources.
+        </p>
+      </section>
+      <p class="text-xs opacity-60">This planner encodes example concurrency and offering rules; verify against the official catalog/flowchart.</p>
     </footer>
   </div>
 
@@ -3834,6 +3872,7 @@
     let targetTerm = 'Fall';
     let terminals = new Set();
     const TERM_ORDER = ['F1', 'S1', 'F2', 'S2', 'F3', 'S3', 'F4', 'S4'];
+    const DISCLAIMER_ACK_KEY = 'plannerDisclaimerAcknowledged';
 
     // List of available curricula
     const CURRICULA = [
@@ -3907,6 +3946,23 @@
 
     function curriculumStorageKey(curriculumId) {
       return `takenCourses:${curriculumId}`;
+    }
+
+    function disclaimerAcknowledged() {
+      return localStorage.getItem(DISCLAIMER_ACK_KEY) === 'true';
+    }
+
+    function updateDisclaimerVisibility() {
+      const modal = document.getElementById('disclaimerModal');
+      const acknowledged = disclaimerAcknowledged();
+      modal.classList.toggle('hidden', acknowledged);
+      modal.classList.toggle('flex', !acknowledged);
+      document.body.classList.toggle('overflow-hidden', !acknowledged);
+    }
+
+    function acknowledgeDisclaimer() {
+      localStorage.setItem(DISCLAIMER_ACK_KEY, 'true');
+      updateDisclaimerVisibility();
     }
 
     function loadTakenCourses(curriculumId) {
@@ -4489,6 +4545,10 @@
       downloadPlannerImage();
     });
 
+    document.getElementById('disclaimerAgreeBtn').addEventListener('click', () => {
+      acknowledgeDisclaimer();
+    });
+
     document.getElementById('importInput').addEventListener('change', (e) => {
       const file = e.target.files?.[0]; if (!file) return;
       const reader = new FileReader();
@@ -4529,6 +4589,7 @@
     });
 
     // Initialize with first curriculum
+    updateDisclaimerVisibility();
     initializeCurriculum(defaultCurriculumId());
   </script>
 </body>
