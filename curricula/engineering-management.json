@@ -1,0 +1,730 @@
+{
+  "metadata": {
+    "id": "engineering-management",
+    "name": "Engineering Management",
+    "description": "Engineering Management curriculum based on the Fall 2017 and after flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ECON120",
+      "name": "Principles of Microeconomics",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 1,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ECON121",
+      "name": "Principles of Macroeconomics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ACTG210",
+      "name": "Introduction to Financial Accounting",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MGMT340",
+      "name": "Introduction to Organizations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MKTG360",
+      "name": "Introduction to Marketing",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ACTG211",
+      "name": "Introduction to Managerial Accounting",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ACTG210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE342",
+      "name": "Probability and Statistics for Engineers",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH310",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "IE345",
+      "name": "Regression Applications and Forecasting in Engineering",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "IE342"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE365",
+      "name": "Work Productivity Analysis",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE446",
+      "name": "Advanced Quality Control and Reliability",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE442",
+      "name": "Design and Analysis of Experiments in Engineering",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "FIN300",
+      "name": "Introduction to Finance",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CME203"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "STAT362",
+      "name": "Elements of Statistical Computing",
+      "credits": 2,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MGMT350",
+      "name": "Business and Its External Environment",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE467",
+      "name": "Discrete Event Computer Simulation Application",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE473",
+      "name": "Stochastic Processes and Queuing Models",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342",
+        "MATH210"
+      ],
+      "concurrentPrereqs": [
+        "IE471"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE461",
+      "name": "Safety Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE471",
+      "name": "Operations Research I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "MATH310"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE466",
+      "name": "Production Operation Analytics and Inventory Control",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE463",
+      "name": "Manufacturing Facilities Design and Material Handling",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473",
+        "IE365",
+        "IE201",
+        "IE467"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE472",
+      "name": "Operations Research II",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "CS109",
+        "IE471"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MGMT495",
+      "name": "Competitive Strategy",
+      "credits": 4,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "recommendationGate": {
+        "finalTermOnly": true
+      }
+    },
+    {
+      "code": "NONIEELEC",
+      "name": "Non-IE Elective",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}

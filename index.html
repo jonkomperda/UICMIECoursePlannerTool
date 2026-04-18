@@ -1,0 +1,4535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UIC MIE Curriculum Map — Interactive Planner</title>
+  <!-- Tailwind Play CDN (no build needed) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Tiny extras for nicer feel */
+    .card { box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+    .btn { @apply px-3 py-2 rounded-xl border bg-white hover:bg-gray-50; }
+    .badge { @apply text-[10px] px-1.5 py-0.5 rounded border; }
+    .curriculum-selector { @apply p-3 rounded-2xl bg-white border; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800 p-6">
+  <div class="mx-auto max-w-7xl">
+    <!-- Curriculum Selector -->
+    <div class="curriculum-selector mb-4">
+      <label class="text-sm font-semibold opacity-70 block mb-2">Curriculum</label>
+      <select id="curriculumSelector" class="px-4 py-2 border rounded-xl text-base w-full md:w-auto">
+        <option value="mechanical-engineering">Mechanical Engineering</option>
+        <option value="industrial-engineering">Industrial Engineering</option>
+        <option value="engineering-management">Engineering Management</option>
+        <option value="mechanical-engineering-2017-2024">Mechanical Engineering (Fall 2017 to Spring 2024)</option>
+        <option value="industrial-engineering-2017-2024">Industrial Engineering (Fall 2017 to Spring 2024)</option>
+      </select>
+    </div>
+
+    <header class="mb-6">
+      <h1 id="plannerTitle" class="text-2xl md:text-3xl font-bold tracking-tight">UIC MIE Flowchart — Interactive Planner</h1>
+      <p id="plannerSubtitle" class="text-sm mt-1 opacity-70">Click a course to mark it taken. Green = eligible now (considers coreqs & concurrent prereqs). Red ring = terminal (no dependents). Recommendations cap at 18 credits for the selected term.</p>
+    </header>
+
+    <!-- Warning Box -->
+    <div id="warningBox" class="hidden p-3 mb-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-sm"></div>
+
+    <!-- Toolbar -->
+    <div class="mb-3 flex flex-wrap items-center gap-3" id="toolbar">
+      <button id="resetBtn" class="btn">Reset</button>
+      <button id="exportBtn" class="btn">Export Image</button>
+      <label class="btn cursor-pointer">
+        Import Plan
+        <input id="importInput" type="file" accept="application/json" class="hidden" />
+      </label>
+      <label class="flex items-center gap-2 ml-auto text-sm">
+        <input id="eligibleOnly" type="checkbox" /> Show only eligible
+      </label>
+      <div class="flex items-center gap-2 text-sm">
+        <span>Target term:</span>
+        <select id="targetTerm" class="px-2 py-1 border rounded-xl">
+          <option value="Fall">Fall</option>
+          <option value="Spring">Spring</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Recommendation (<=18 cr) -->
+    <section class="mb-6">
+      <h2 class="text-lg font-semibold mb-2">Recommended Next Term (≤18 credits)</h2>
+      <div id="recCredits" class="text-sm mb-2 opacity-70">Total credits: 0</div>
+      <div id="recGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+      <div id="recEmpty" class="text-sm opacity-70 hidden">No packable schedule under 18 credits for the selected term with current progress.</div>
+    </section>
+
+    <!-- Suggestions -->
+    <section class="mb-6">
+      <h2 class="text-lg font-semibold mb-2">All Eligible Candidates (by PW)</h2>
+      <div id="suggGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+      <div id="suggEmpty" class="text-sm opacity-70 hidden">No suggestions — either all done or prereqs unmet for the selected term.</div>
+    </section>
+
+    <!-- Grid by term -->
+    <section id="termsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"></section>
+
+    <!-- Legend -->
+    <section class="mt-8">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="px-2 py-1 rounded bg-white border">White = locked (hard prereqs not met / not offered)</span>
+        <span class="px-2 py-1 rounded bg-emerald-50 border border-emerald-300">Green = eligible now (concurrent/coreq rules apply)</span>
+        <span class="px-2 py-1 rounded bg-gray-200 border border-gray-300 line-through">Gray = marked taken</span>
+        <span class="px-2 py-1 rounded ring-1 ring-red-300">Red ring = terminal course</span>
+      </div>
+    </section>
+
+    <footer class="mt-10 text-xs opacity-60">
+      <p>This planner encodes example concurrency and offering rules; verify against the official catalog/flowchart.</p>
+    </footer>
+  </div>
+
+  <script id="curriculum-data-mechanical-engineering" type="application/json">
+{
+  "metadata": {
+    "id": "mechanical-engineering",
+    "name": "Mechanical Engineering",
+    "description": "Standard MIE B.S. curriculum",
+    "version": "1.0",
+    "lastUpdated": "2024-01-01"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "pw": 2,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "pw": 7,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "pw": 1,
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "pw": 6,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "pw": 2,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "pw": 6,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S1",
+      "pw": 4,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "pw": 5,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "pw": 3,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "pw": 5,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "pw": 1,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F2",
+      "pw": 2,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH220",
+      "name": "Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "pw": 4,
+      "prerequisites": [
+        "MATH210"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "pw": 4,
+      "prerequisites": [
+        "CME201"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME205",
+      "name": "Intro to Thermodynamics",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "PHYS141",
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH310",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S2",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME210",
+      "name": "Dynamics",
+      "credits": 3,
+      "term": "F3",
+      "pw": 3,
+      "prerequisites": [
+        "CME201"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME211",
+      "name": "Fluid Mechanics",
+      "credits": 4,
+      "term": "F3",
+      "pw": 2,
+      "prerequisites": [
+        "MATH220",
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME328",
+      "name": "Numerical Methods",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CS109",
+        "MATH310"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME320",
+      "name": "Mechanisms and Dynamics of Machinery",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME380",
+      "name": "Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME347",
+      "name": "Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S3",
+      "pw": 3,
+      "prerequisites": [
+        "MATH220",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME321",
+      "name": "Heat Transfer",
+      "credits": 4,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "ME210"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME370",
+      "name": "Mechanical Engineering Design",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME312",
+      "name": "Dynamic Systems and Control",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "MATH220",
+        "CS109"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "ECE210"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME341",
+      "name": "Experimental Methods in Mechanical Engineering",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME211"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "IE342",
+      "name": "Probability & Stats for Engr",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME396",
+      "name": "Senior Design I (Fall Only)",
+      "credits": 3,
+      "term": "F4",
+      "pw": 2,
+      "prerequisites": [
+        "IE201",
+        "ME347"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall"
+      ]
+    },
+    {
+      "code": "ME397",
+      "name": "Senior Design II (Spring Only)",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [
+        "ME396"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME499",
+      "name": "Undergrad Degree Audit (0 cr)",
+      "credits": 0,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [
+        "ME397"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "recommendationGate": {
+        "afterCompleted": [
+          "ME396"
+        ]
+      }
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH4",
+      "name": "Technical Elective #4",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "FREEELEC",
+      "name": "Free Elective",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    }
+  ]
+}
+  </script>
+
+  <script id="curriculum-data-industrial-engineering" type="application/json">
+{
+  "metadata": {
+    "id": "industrial-engineering",
+    "name": "Industrial Engineering",
+    "description": "Industrial Engineering curriculum based on the Fall 2024 and later flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE342",
+      "name": "Probability and Statistics for Engineers",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE345",
+      "name": "Regression Applications and Forecasting in Engineering",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE365",
+      "name": "Work Productivity Analysis",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE471",
+      "name": "Operations Research I",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "MATH218"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE348",
+      "name": "Artificial Intelligence and Data Mining for Engineering Applications",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "STAT362",
+      "name": "Elements of Statistical Computing",
+      "credits": 2,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE472",
+      "name": "Operations Research II",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CS109",
+        "IE471"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE442",
+      "name": "Design and Analysis of Experiments in Engineering",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MGMT340",
+      "name": "Introduction to Organizations",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "FREEELEC",
+      "name": "Free Elective",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE201"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE365"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE467",
+      "name": "Discrete Event Computer Simulation Application",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME203",
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH4",
+      "name": "Technical Elective #4",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [
+        "IE396"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE466",
+      "name": "Production Operation Analytics and Inventory Control",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE345"
+      ],
+      "concurrentPrereqs": [
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE463",
+      "name": "Manufacturing Facilities Design and Material Handling",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "IE201",
+        "IE365",
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "recommendationGate": {
+        "afterCompleted": [
+          "IE396"
+        ]
+      }
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}
+  </script>
+
+  <script id="curriculum-data-engineering-management" type="application/json">
+{
+  "metadata": {
+    "id": "engineering-management",
+    "name": "Engineering Management",
+    "description": "Engineering Management curriculum based on the Fall 2017 and after flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ECON120",
+      "name": "Principles of Microeconomics",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 1,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ECON121",
+      "name": "Principles of Macroeconomics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ACTG210",
+      "name": "Introduction to Financial Accounting",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MGMT340",
+      "name": "Introduction to Organizations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MKTG360",
+      "name": "Introduction to Marketing",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ACTG211",
+      "name": "Introduction to Managerial Accounting",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "ACTG210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE342",
+      "name": "Probability and Statistics for Engineers",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH310",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "IE345",
+      "name": "Regression Applications and Forecasting in Engineering",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "IE342"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE365",
+      "name": "Work Productivity Analysis",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE446",
+      "name": "Advanced Quality Control and Reliability",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE442",
+      "name": "Design and Analysis of Experiments in Engineering",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "FIN300",
+      "name": "Introduction to Finance",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CME203"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "STAT362",
+      "name": "Elements of Statistical Computing",
+      "credits": 2,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MGMT350",
+      "name": "Business and Its External Environment",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE467",
+      "name": "Discrete Event Computer Simulation Application",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE473",
+      "name": "Stochastic Processes and Queuing Models",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342",
+        "MATH210"
+      ],
+      "concurrentPrereqs": [
+        "IE471"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE461",
+      "name": "Safety Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE471",
+      "name": "Operations Research I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "MATH310"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE466",
+      "name": "Production Operation Analytics and Inventory Control",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE463",
+      "name": "Manufacturing Facilities Design and Material Handling",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473",
+        "IE365",
+        "IE201",
+        "IE467"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE472",
+      "name": "Operations Research II",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "CS109",
+        "IE471"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MGMT495",
+      "name": "Competitive Strategy",
+      "credits": 4,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "recommendationGate": {
+        "finalTermOnly": true
+      }
+    },
+    {
+      "code": "NONIEELEC",
+      "name": "Non-IE Elective",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}
+  </script>
+
+  <script id="curriculum-data-mechanical-engineering-2017-2024" type="application/json">
+{
+  "metadata": {
+    "id": "mechanical-engineering-2017-2024",
+    "name": "Mechanical Engineering (Fall 2017 to Spring 2024)",
+    "description": "Mechanical Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 7
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 1,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "CME261",
+      "name": "Materials for Manufacturing",
+      "credits": 2,
+      "term": "F2",
+      "prerequisites": [
+        "CHEM122",
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ME205",
+      "name": "Intro to Thermodynamics",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "MATH218_OR_PHYS240",
+      "name": "MATH 218 or PHYS 240",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "FREEELEC",
+      "name": "Free Elective",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "STAT361",
+      "name": "Elements of Statistical Methods",
+      "credits": 2,
+      "term": "F3",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME210",
+      "name": "Dynamics",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ME325",
+      "name": "Intermediate Thermodynamics",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "ME205"
+      ],
+      "concurrentPrereqs": [
+        "ME211"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME211",
+      "name": "Fluid Mechanics",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "PHYS141",
+        "MATH220"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME347",
+      "name": "Engineering Design and Graphics with Computer-Aided Design and Simulation",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "MATH220",
+        "CME203",
+        "ME250"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ME308",
+      "name": "Mechanical Vibrations",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ME210",
+        "CS109",
+        "MATH220"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME320",
+      "name": "Mechanisms and Dynamics of Machinery",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ME210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME321",
+      "name": "Heat Transfer",
+      "credits": 4,
+      "term": "S3",
+      "prerequisites": [
+        "ME205"
+      ],
+      "concurrentPrereqs": [
+        "ME211"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME370",
+      "name": "Mechanical Engineering Design",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME203",
+        "ME250",
+        "CME261"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ME380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME203",
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE201",
+        "ME347"
+      ],
+      "concurrentPrereqs": [
+        "ME211",
+        "ME370"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ME312",
+      "name": "Dynamic Systems and Control",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "MATH220",
+        "CS109",
+        "ECE210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME328",
+      "name": "Numerical Methods in Mechanical Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CS109",
+        "MATH218_OR_PHYS240"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME341",
+      "name": "Experimental Methods in Mechanical Engineering",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "CME203",
+        "ME211"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [
+        "ME396"
+      ],
+      "concurrentPrereqs": [
+        "ME499"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ME499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2,
+      "recommendationGate": {
+        "afterCompleted": [
+          "ME396"
+        ]
+      }
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}
+  </script>
+
+  <script id="curriculum-data-industrial-engineering-2017-2024" type="application/json">
+{
+  "metadata": {
+    "id": "industrial-engineering-2017-2024",
+    "name": "Industrial Engineering (Fall 2017 to Spring 2024)",
+    "description": "Industrial Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 1,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE342",
+      "name": "Probability and Statistics for Engineers",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE365",
+      "name": "Work Productivity Analysis",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE345",
+      "name": "Regression Applications and Forecasting in Engineering",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE471",
+      "name": "Operations Research I",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH218"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "STAT362",
+      "name": "Elements of Statistical Computing",
+      "credits": 2,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MGMT340",
+      "name": "Introduction to Organizations",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE446",
+      "name": "Advanced Quality Control and Reliability",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE442",
+      "name": "Design and Analysis of Experiments in Engineering",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE472",
+      "name": "Operations Research II",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CS109",
+        "IE471"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE467",
+      "name": "Discrete Event Computer Simulation Application",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE461",
+      "name": "Safety Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE473",
+      "name": "Stochastic Processes and Queuing Models",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342",
+        "MATH210"
+      ],
+      "concurrentPrereqs": [
+        "IE471"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME203",
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE201"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE365"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE463",
+      "name": "Manufacturing Facilities Design and Material Handling",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473",
+        "IE365",
+        "IE201",
+        "IE467"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE466",
+      "name": "Production Operation Analytics and Inventory Control",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2,
+      "recommendationGate": {
+        "afterCompleted": [
+          "IE396"
+        ]
+      }
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [
+        "IE396"
+      ],
+      "concurrentPrereqs": [
+        "IE499"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "NONIEELEC",
+      "name": "Non-IE Elective",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}
+  </script>
+
+  <script>
+    // -----------------------------
+    // Global State
+    // -----------------------------
+    let currentCurriculum = null;
+    let ENHANCED = [];
+    const codeMap = new Map();
+    let taken = new Set();
+    let showOnlyEligible = false;
+    let targetTerm = 'Fall';
+    let terminals = new Set();
+    const TERM_ORDER = ['F1', 'S1', 'F2', 'S2', 'F3', 'S3', 'F4', 'S4'];
+
+    // List of available curricula
+    const CURRICULA = [
+      { id: 'mechanical-engineering', name: 'Mechanical Engineering' },
+      { id: 'industrial-engineering', name: 'Industrial Engineering' },
+      { id: 'engineering-management', name: 'Engineering Management' },
+      { id: 'mechanical-engineering-2017-2024', name: 'Mechanical Engineering (Fall 2017 to Spring 2024)' },
+      { id: 'industrial-engineering-2017-2024', name: 'Industrial Engineering (Fall 2017 to Spring 2024)' }
+    ];
+
+    // -----------------------------
+    // Curriculum Data Loader
+    // -----------------------------
+    let curriculumCache = {};
+
+    function cloneCurriculumData(data) {
+      if (typeof structuredClone === 'function') {
+        return structuredClone(data);
+      }
+      return JSON.parse(JSON.stringify(data));
+    }
+
+    function loadEmbeddedCurriculumData(curriculumId) {
+      const embedded = document.getElementById(`curriculum-data-${curriculumId}`);
+      if (!embedded) return null;
+
+      try {
+        return cloneCurriculumData(JSON.parse(embedded.textContent));
+      } catch (e) {
+        console.error('Error parsing embedded curriculum data:', e);
+        return null;
+      }
+    }
+
+    async function loadCurriculumData(curriculumId) {
+      // Check cache first
+      if (curriculumCache[curriculumId]) {
+        return cloneCurriculumData(curriculumCache[curriculumId]);
+      }
+
+      try {
+        const response = await fetch(`curricula/${curriculumId}.json`);
+        if (!response.ok) throw new Error(`Failed to load: ${curriculumId}`);
+        const data = await response.json();
+
+        // Validate
+        if (!data.courses || !Array.isArray(data.courses)) {
+          throw new Error('Invalid curriculum format');
+        }
+
+        // Cache the data
+        curriculumCache[curriculumId] = data;
+        return cloneCurriculumData(data);
+
+      } catch (e) {
+        const embeddedData = loadEmbeddedCurriculumData(curriculumId);
+        if (embeddedData) {
+          console.warn(`Falling back to embedded curriculum data for ${curriculumId}`, e);
+          curriculumCache[curriculumId] = embeddedData;
+          return cloneCurriculumData(embeddedData);
+        }
+
+        console.error('Error loading curriculum data:', e);
+        throw e;
+      }
+    }
+
+    function defaultCurriculumId() {
+      return CURRICULA[0].id;
+    }
+
+    function curriculumStorageKey(curriculumId) {
+      return `takenCourses:${curriculumId}`;
+    }
+
+    function loadTakenCourses(curriculumId) {
+      const legacyValue = curriculumId === 'mechanical-engineering'
+        ? localStorage.getItem('takenCourses')
+        : null;
+      const raw = localStorage.getItem(curriculumStorageKey(curriculumId)) ?? legacyValue ?? '[]';
+
+      try {
+        const parsed = JSON.parse(raw);
+        return new Set(Array.isArray(parsed) ? parsed : []);
+      } catch (e) {
+        console.warn('Error parsing saved planner state:', e);
+        return new Set();
+      }
+    }
+
+    function curriculumName(curriculumId) {
+      return CURRICULA.find(c => c.id === curriculumId)?.name || curriculumId;
+    }
+
+    function updatePageMetadata(data) {
+      const name = data.metadata?.name || 'UIC MIE';
+      document.title = `${name} Flowchart — Interactive Planner`;
+      document.getElementById('plannerTitle').textContent = `${name} Flowchart — Interactive Planner`;
+      document.getElementById('plannerSubtitle').textContent =
+        'Click a course to mark it taken. Green = eligible now (considers coreqs & concurrent prereqs). Red ring = terminal (no dependents). Recommendations cap at 18 credits for the selected term.';
+    }
+
+    function termSeason(termId) {
+      return String(termId || '').startsWith('F') ? 'Fall' : 'Spring';
+    }
+
+    // -----------------------------
+    // Initialize Curriculum
+    // -----------------------------
+    async function initializeCurriculum(curriculumId) {
+      try {
+        console.log('Initializing curriculum:', curriculumId);
+
+        const data = await loadCurriculumData(curriculumId);
+        currentCurriculum = data;
+        const loadedTaken = loadTakenCourses(curriculumId);
+
+        // Build codeMap
+        ENHANCED = data.courses.map(c => ({
+          ...c,
+          prereqObjs: buildPrereqObjs(c)
+        }));
+        ENHANCED = ENHANCED.map(c => {
+          c.coreqs = c.corequisites || [];
+          return c;
+        });
+        codeMap.clear();
+        ENHANCED.forEach(c => codeMap.set(c.code, c));
+        taken = new Set(Array.from(loadedTaken).filter(code => codeMap.has(code)));
+
+        // Build terminals
+        terminals = computeTerminals(ENHANCED);
+
+        // Update selector to show current selection
+        populateCurriculumSelector(data);
+        updatePageMetadata(data);
+
+        // Update target term options if needed
+        if (data.terms) {
+          updateTargetTermOptions(data.terms);
+        }
+
+        save();
+        renderAll();
+        console.log('Curriculum loaded:', curriculumId);
+
+      } catch (e) {
+        console.error('Failed to initialize curriculum:', e);
+        showWarning(`Error loading curriculum: ${e.message}`);
+      }
+    }
+
+    function buildPrereqObjs(course) {
+      const prereqObjs = [];
+      (course.prerequisites || []).forEach(p => prereqObjs.push({ code: p, concurrent: false }));
+      (course.concurrentPrereqs || []).forEach(p => prereqObjs.push({ code: p, concurrent: true }));
+      return prereqObjs;
+    }
+
+    function updateTargetTermOptions(terms) {
+      // Extract unique terms from courses if terms not specified
+    }
+
+    function populateCurriculumSelector(data) {
+      const selector = document.getElementById('curriculumSelector');
+      selector.innerHTML = '';
+      CURRICULA.forEach(c => {
+        const option = document.createElement('option');
+        option.value = c.id;
+        option.textContent = c.name;
+        selector.appendChild(option);
+      });
+      selector.value = data.metadata?.id || defaultCurriculumId();
+    }
+
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    function buildGraph(courses) {
+      const prereqOf = new Map();
+      courses.forEach(c => (c.prereqObjs||[]).forEach(p => {
+        if (!prereqOf.has(p.code)) prereqOf.set(p.code, new Set());
+        prereqOf.get(p.code).add(c.code);
+      }));
+      return { prereqOf };
+    }
+
+    function computeTerminals(courses) {
+      const { prereqOf } = buildGraph(courses);
+      const terminals = new Set();
+      courses.forEach(c => {
+        const outs = prereqOf.get(c.code);
+        if (!outs || outs.size === 0) terminals.add(c.code);
+      });
+      return terminals;
+    }
+
+    function isOfferedThisTerm(course, termLabel) {
+      return (course.offeredIn || ["Fall","Spring"]).includes(termLabel);
+    }
+
+    function eligibleNow(course, takenSet, termLabel) {
+      if (takenSet.has(course.code)) return false;
+      // All prereqs must be taken (including concurrent ones)
+      const hardPrereqsMet = (course.prereqObjs||[]).every(p => takenSet.has(p.code));
+      return hardPrereqsMet && isOfferedThisTerm(course, termLabel);
+    }
+
+    function findAnchorTerm(courses, takenSet, termLabel) {
+      const preferred = TERM_ORDER.filter(termId => termSeason(termId) === termLabel);
+      const firstUntaken = preferred.find(termId =>
+        courses.some(course => course.term === termId && !takenSet.has(course.code))
+      );
+      if (firstUntaken) return firstUntaken;
+
+      const firstDefined = preferred.find(termId =>
+        courses.some(course => course.term === termId)
+      );
+      return firstDefined || preferred[0] || TERM_ORDER[0];
+    }
+
+    function termDistance(anchorTerm, courseTerm) {
+      const anchorIndex = TERM_ORDER.indexOf(anchorTerm);
+      const courseIndex = TERM_ORDER.indexOf(courseTerm);
+      if (anchorIndex === -1 || courseIndex === -1) return Number.MAX_SAFE_INTEGER;
+      return (courseIndex - anchorIndex + TERM_ORDER.length) % TERM_ORDER.length;
+    }
+
+    function isFinalTermRecommendationReady(course, takenSet, courses) {
+      return courses.every(other =>
+        other.code === course.code ||
+        other.isPlaceholder ||
+        other.code.endsWith('499') ||
+        takenSet.has(other.code)
+      );
+    }
+
+    function recommendationGateMet(course, takenSet, courses) {
+      const gate = course.recommendationGate;
+      if (!gate) return true;
+
+      if ((gate.afterCompleted || []).some(code => !takenSet.has(code))) {
+        return false;
+      }
+
+      if (gate.finalTermOnly) {
+        return isFinalTermRecommendationReady(course, takenSet, courses);
+      }
+
+      return true;
+    }
+
+    function compareRecommendationPriority(a, b, anchorTerm) {
+      return termDistance(anchorTerm, a.term) - termDistance(anchorTerm, b.term)
+        || b.pw - a.pw
+        || a.code.localeCompare(b.code);
+    }
+
+    function nextEligible(courses, takenSet, termLabel) {
+      const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
+      return courses
+        .filter(c => eligibleNow(c, takenSet, termLabel) && recommendationGateMet(c, takenSet, courses))
+        .sort((a,b) => compareRecommendationPriority(a, b, anchorTerm));
+    }
+
+    function getCoreqBundle(courseCode, takenSet) {
+      const bundle = new Set([courseCode]);
+      const get = (code) => codeMap.get(code);
+      let changed = true;
+      while (changed) {
+        changed = false;
+        for (const code of Array.from(bundle)) {
+          const c = get(code);
+          if (!c) continue;
+          (c.corequisites||[]).forEach(co => { if (!takenSet.has(co) && !bundle.has(co)) { bundle.add(co); changed = true; } });
+          (c.concurrentPrereqs||[]).forEach(p => { if (!takenSet.has(p) && !bundle.has(p)) { bundle.add(p); changed = true; } });
+          // Also add courses that have this course as a coreq (bidirectional)
+          ENHANCED.forEach(other => {
+            if (!takenSet.has(other.code) && !bundle.has(other.code) &&
+                (other.corequisites||[]).includes(code)) {
+              bundle.add(other.code);
+              changed = true;
+            }
+          });
+        }
+      }
+      return Array.from(bundle);
+    }
+
+    function ensureBundle(course, takenSet) {
+      const bundle = new Set([course.code]);
+      const get = (code) => codeMap.get(code);
+      let changed = true;
+      while (changed) {
+        changed = false;
+        for (const code of Array.from(bundle)) {
+          const c = get(code);
+          if (!c) continue;
+          (c.corequisites||[]).forEach(co => { if (!takenSet.has(co) && !bundle.has(co)) { bundle.add(co); changed = true; } });
+          (c.prereqObjs||[]).forEach(p => { if (p.concurrent && !takenSet.has(p.code) && !bundle.has(p.code)) { bundle.add(p.code); changed = true; } });
+          // Also add courses that have this course as a coreq (bidirectional)
+          ENHANCED.forEach(other => {
+            if (!takenSet.has(other.code) && !bundle.has(other.code) &&
+                (other.corequisites||[]).includes(code)) {
+              bundle.add(other.code);
+              changed = true;
+            }
+          });
+        }
+      }
+      return Array.from(bundle).map(get).filter(Boolean);
+    }
+
+    function packRecommendation(courses, takenSet, termLabel, maxCr=18) {
+      const pool = nextEligible(courses, takenSet, termLabel);
+      const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
+      const chosen = new Set();
+      let credits = 0;
+      for (const c of pool) {
+        if (chosen.has(c.code)) continue;
+        const bundle = ensureBundle(c, takenSet).filter(x => !chosen.has(x.code));
+        if (!bundle.every(x => isOfferedThisTerm(x, termLabel))) continue;
+        const bundleCr = bundle.reduce((s,x)=>s+(x.credits||0),0);
+        if (credits + bundleCr <= maxCr) {
+          bundle.forEach(x => chosen.add(x.code));
+          credits += bundleCr;
+        }
+      }
+      const list = Array.from(chosen).map(code => codeMap.get(code)).filter(Boolean)
+        .sort((a,b) => compareRecommendationPriority(a, b, anchorTerm));
+      return { list, credits };
+    }
+
+    // -----------------------------
+    // Warning Display
+    // -----------------------------
+    function showWarning(message) {
+      const box = document.getElementById('warningBox');
+      if (box) {
+        box.textContent = message;
+        box.classList.remove('hidden');
+        setTimeout(() => box.classList.add('hidden'), 5000);
+      }
+    }
+
+    // -----------------------------
+    // State
+    // -----------------------------
+    function save() {
+      const curriculumId = currentCurriculum?.metadata?.id;
+      if (!curriculumId) return;
+
+      const serialized = JSON.stringify(Array.from(taken));
+      localStorage.setItem(curriculumStorageKey(curriculumId), serialized);
+
+      // Preserve the original key for the current Mechanical curriculum.
+      if (curriculumId === 'mechanical-engineering') {
+        localStorage.setItem('takenCourses', serialized);
+      }
+    }
+
+    function escapeXml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&apos;');
+    }
+
+    function wrapSvgText(text, maxChars=28, maxLines=2) {
+      const words = String(text || '').split(/\s+/).filter(Boolean);
+      if (words.length === 0) return [''];
+
+      const lines = [];
+      let current = '';
+      words.forEach(word => {
+        const candidate = current ? `${current} ${word}` : word;
+        if (candidate.length <= maxChars || current.length === 0) {
+          current = candidate;
+          return;
+        }
+        lines.push(current);
+        current = word;
+      });
+      if (current) lines.push(current);
+
+      if (lines.length <= maxLines) return lines;
+
+      const clipped = lines.slice(0, maxLines);
+      clipped[maxLines - 1] = `${clipped[maxLines - 1].slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
+      return clipped;
+    }
+
+    function buildExportSvg(curriculum, courses, takenSet, targetTermLabel, recommendation) {
+      const title = `${curriculum.metadata?.name || 'UIC MIE'} Planner`;
+      const termIds = TERM_ORDER.filter(termId => (curriculum.terms || []).some(term => term.id === termId));
+      const rows = [termIds.slice(0, 4), termIds.slice(4, 8)];
+      const margin = 28;
+      const gutter = 20;
+      const columns = 4;
+      const panelWidth = 390;
+      const panelHeight = 520;
+      const width = margin * 2 + panelWidth * columns + gutter * (columns - 1);
+      const height = 190 + panelHeight * 2 + gutter + margin;
+      const recommendationSet = new Set(recommendation.list.map(course => course.code));
+      const anchorTerm = findAnchorTerm(courses, takenSet, targetTermLabel);
+      const coursesByTerm = new Map(termIds.map(termId => [termId, []]));
+
+      courses.forEach(course => {
+        if (coursesByTerm.has(course.term)) {
+          coursesByTerm.get(course.term).push(course);
+        }
+      });
+
+      coursesByTerm.forEach((list, termId) => {
+        list.sort((a, b) => compareRecommendationPriority(a, b, anchorTerm));
+      });
+
+      const svgParts = [
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+        '<rect width="100%" height="100%" fill="#f8fafc"/>',
+        `<text x="${margin}" y="54" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#0f172a">${escapeXml(title)}</text>`,
+        `<text x="${margin}" y="84" font-family="Arial, sans-serif" font-size="16" fill="#334155">Curriculum: ${escapeXml(curriculum.metadata?.name || '')}</text>`,
+        `<text x="${margin}" y="108" font-family="Arial, sans-serif" font-size="16" fill="#334155">Target term: ${escapeXml(targetTermLabel)}</text>`,
+        `<text x="${margin}" y="132" font-family="Arial, sans-serif" font-size="16" fill="#334155">Completed: ${takenSet.size} courses | Recommended: ${recommendation.list.length} courses | Credits: ${recommendation.credits}</text>`,
+        `<rect x="${margin}" y="146" width="18" height="18" rx="4" fill="#e2e8f0" stroke="#94a3b8"/>`,
+        `<line x1="${margin + 2}" y1="148" x2="${margin + 16}" y2="162" stroke="#475569" stroke-width="2"/>`,
+        `<line x1="${margin + 16}" y1="148" x2="${margin + 2}" y2="162" stroke="#475569" stroke-width="2"/>`,
+        `<text x="${margin + 26}" y="160" font-family="Arial, sans-serif" font-size="14" fill="#334155">Completed course</text>`,
+        `<rect x="${margin + 180}" y="146" width="18" height="18" rx="4" fill="#ffffff" stroke="#0f172a"/>`,
+        `<ellipse cx="${margin + 189}" cy="155" rx="13" ry="11" fill="none" stroke="#ea580c" stroke-width="2.5"/>`,
+        `<text x="${margin + 206}" y="160" font-family="Arial, sans-serif" font-size="14" fill="#334155">Recommended course</text>`
+      ];
+
+      rows.forEach((row, rowIndex) => {
+        row.forEach((termId, columnIndex) => {
+          const term = (curriculum.terms || []).find(item => item.id === termId);
+          const panelX = margin + columnIndex * (panelWidth + gutter);
+          const panelY = 190 + rowIndex * (panelHeight + gutter);
+          const cardX = panelX + 16;
+          let cardY = panelY + 52;
+          const cardWidth = panelWidth - 32;
+          const cardHeight = 54;
+          const cardGap = 10;
+
+          svgParts.push(`<g data-term="${escapeXml(termId)}">`);
+          svgParts.push(`<rect x="${panelX}" y="${panelY}" width="${panelWidth}" height="${panelHeight}" rx="20" fill="#ffffff" stroke="#cbd5e1"/>`);
+          svgParts.push(`<text x="${panelX + 18}" y="${panelY + 28}" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">${escapeXml(term?.title || termId)}</text>`);
+          svgParts.push(`<text x="${panelX + panelWidth - 18}" y="${panelY + 28}" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#64748b">${(coursesByTerm.get(termId) || []).length} courses</text>`);
+
+          (coursesByTerm.get(termId) || []).forEach(course => {
+            const isTaken = takenSet.has(course.code);
+            const isRecommended = recommendationSet.has(course.code);
+            const fill = isTaken ? '#e2e8f0' : '#ffffff';
+            const stroke = isTaken ? '#94a3b8' : '#cbd5e1';
+            const nameLines = wrapSvgText(course.name, 28, 2);
+
+            svgParts.push(`<g data-course="${escapeXml(course.code)}" data-taken="${isTaken}" data-recommended="${isRecommended}">`);
+            svgParts.push(`<rect x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" rx="14" fill="${fill}" stroke="${stroke}"/>`);
+            svgParts.push(`<text x="${cardX + 14}" y="${cardY + 20}" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#0f172a">${escapeXml(course.code)}</text>`);
+            svgParts.push(`<text x="${cardX + cardWidth - 14}" y="${cardY + 20}" text-anchor="end" font-family="Arial, sans-serif" font-size="13" fill="#475569">${course.credits} cr</text>`);
+            nameLines.forEach((line, lineIndex) => {
+              svgParts.push(`<text x="${cardX + 14}" y="${cardY + 36 + lineIndex * 14}" font-family="Arial, sans-serif" font-size="12" fill="#334155">${escapeXml(line)}</text>`);
+            });
+
+            if (isTaken) {
+              svgParts.push(`<line x1="${cardX + 8}" y1="${cardY + 8}" x2="${cardX + cardWidth - 8}" y2="${cardY + cardHeight - 8}" stroke="#475569" stroke-width="2.2"/>`);
+              svgParts.push(`<line x1="${cardX + cardWidth - 8}" y1="${cardY + 8}" x2="${cardX + 8}" y2="${cardY + cardHeight - 8}" stroke="#475569" stroke-width="2.2"/>`);
+            }
+
+            if (isRecommended) {
+              svgParts.push(`<ellipse cx="${cardX + cardWidth / 2}" cy="${cardY + cardHeight / 2}" rx="${cardWidth / 2 + 6}" ry="${cardHeight / 2 + 4}" fill="none" stroke="#ea580c" stroke-width="3"/>`);
+            }
+
+            svgParts.push('</g>');
+            cardY += cardHeight + cardGap;
+          });
+
+          svgParts.push('</g>');
+        });
+      });
+
+      svgParts.push('</svg>');
+      return svgParts.join('');
+    }
+
+    async function downloadPlannerImage() {
+      if (!currentCurriculum) return;
+
+      const recommendation = packRecommendation(ENHANCED, taken, targetTerm, 18);
+      const svg = buildExportSvg(currentCurriculum, ENHANCED, taken, targetTerm, recommendation);
+      const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+
+      try {
+        const image = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = url;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0);
+
+        const pngUrl = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        const curriculumId = currentCurriculum?.metadata?.id || defaultCurriculumId();
+        a.href = pngUrl;
+        a.download = `${curriculumId}-${targetTerm.toLowerCase()}-plan.png`;
+        a.click();
+      } catch (error) {
+        console.error('Failed to export planner image:', error);
+        showWarning('Unable to export planner image.');
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    // -----------------------------
+    // Rendering
+    // -----------------------------
+    function courseBox(course, opts={}) {
+      const { isEligible=false } = opts;
+      const isTaken = taken.has(course.code);
+      const isTerminal = terminals.has(course.code);
+      const cls = [
+        'relative w-full text-left rounded-2xl p-3 border transition card',
+        isTaken ? 'bg-gray-200 border-gray-300 line-through opacity-70' : isEligible ? 'bg-emerald-50 border-emerald-300' : 'bg-white border-gray-200',
+        isTerminal && !isTaken ? 'ring-1 ring-red-300' : ''
+      ].join(' ');
+      const prereqText = (course.prereqObjs||[]).length ? ('prereqs: ' + course.prereqObjs.map(p => p.code + (p.concurrent ? ' (concur)' : '')).join(', ')) : 'no prereqs';
+      const el = document.createElement('button');
+      el.className = cls;
+      el.title = course.name;
+      el.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="font-semibold text-sm tracking-wide">${course.code}</div>
+          <div class="text-xs opacity-70">${course.credits} cr</div>
+        </div>
+        <div class="text-xs mt-1">${course.name}</div>
+        <div class="mt-2 flex items-center flex-wrap gap-2">
+          <span class="badge bg-gray-50 border-gray-100">${prereqText}</span>
+          <span class="badge bg-blue-50 border-blue-200">PW: ${course.pw}</span>
+          ${isTerminal && !isTaken ? '<span class="badge bg-red-50 border-red-200">terminal</span>' : ''}
+          ${isEligible && !isTaken ? '<span class="badge bg-emerald-100 border-emerald-200">eligible</span>' : ''}
+        </div>`;
+      el.addEventListener('click', () => { toggle(course.code); });
+      return el;
+    }
+
+    function renderRecommendation() {
+      const rec = packRecommendation(ENHANCED, taken, targetTerm, 18);
+      document.getElementById('recCredits').textContent = `Total credits: ${rec.credits}`;
+      const grid = document.getElementById('recGrid');
+      const empty = document.getElementById('recEmpty');
+      grid.innerHTML = '';
+      if (rec.list.length === 0) {
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        rec.list.forEach(c => grid.appendChild(courseBox(c, { isEligible: eligibleNow(c, taken, targetTerm) })));
+      }
+    }
+
+    function renderSuggestions() {
+      const list = nextEligible(ENHANCED, taken, targetTerm);
+      const grid = document.getElementById('suggGrid');
+      const empty = document.getElementById('suggEmpty');
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        list.slice(0, 12).forEach(c => grid.appendChild(courseBox(c, { isEligible: true })));
+      }
+    }
+
+    function renderTerms() {
+      const container = document.getElementById('termsGrid');
+      container.innerHTML = '';
+      const map = new Map();
+      (currentCurriculum?.terms || []).forEach(t => map.set(t.id, []));
+      ENHANCED.forEach(c => { if (!map.has(c.term)) map.set(c.term, []); map.get(c.term).push(c); });
+      (currentCurriculum?.terms || []).forEach(t => map.get(t.id).sort((a,b)=> b.pw - a.pw || a.code.localeCompare(b.code)));
+
+      for (const t of (currentCurriculum?.terms || [])) {
+        const card = document.createElement('div');
+        card.className = 'rounded-2xl border bg-white/70 backdrop-blur p-4 card';
+        const header = document.createElement('div');
+        header.className = 'flex items-baseline justify-between mb-3';
+        header.innerHTML = `<h3 class="font-semibold">${t.title}</h3>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 border">${(map.get(t.id)||[]).length} courses</span>`;
+        const list = document.createElement('div');
+        list.className = 'flex flex-col gap-3';
+
+        (map.get(t.id)||[])
+          .filter(c => showOnlyEligible ? eligibleNow(c, taken, targetTerm) && !taken.has(c.code) : true)
+          .forEach(c => list.appendChild(courseBox(c, { isEligible: eligibleNow(c, taken, targetTerm) })));
+
+        card.appendChild(header);
+        card.appendChild(list);
+        container.appendChild(card);
+      }
+    }
+
+    function renderAll() {
+      renderRecommendation();
+      renderSuggestions();
+      renderTerms();
+    }
+
+    // -----------------------------
+    // Actions
+    // -----------------------------
+    function toggle(code) {
+      if (taken.has(code)) {
+        const bundle = getCoreqBundle(code, taken);
+        bundle.forEach(c => taken.delete(c));
+        if (bundle.length > 1) {
+          showWarning(`Deselected ${code} and its corequisites`);
+        }
+      } else {
+        const bundle = getCoreqBundle(code, taken);
+        if (bundle.length > 1) {
+          showWarning(`${code} has corequisites that were automatically selected`);
+        }
+        bundle.forEach(c => taken.add(c));
+      }
+      save();
+      renderAll();
+    }
+
+    document.getElementById('curriculumSelector').addEventListener('change', (e) => {
+      const curriculumId = e.target.value;
+      console.log('Switching to curriculum:', curriculumId);
+      initializeCurriculum(curriculumId);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      taken.clear();
+      save();
+      renderAll();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      downloadPlannerImage();
+    });
+
+    document.getElementById('importInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const obj = JSON.parse(reader.result);
+          if (!obj || !Array.isArray(obj.taken)) return;
+
+          const importedCurriculumId = obj.curriculumId;
+          if (importedCurriculumId && importedCurriculumId !== currentCurriculum?.metadata?.id) {
+            showWarning(`Imported plan belongs to ${curriculumName(importedCurriculumId)}. Switch curricula before importing it.`);
+            return;
+          }
+
+          const validCodes = obj.taken.filter(code => codeMap.has(code));
+          taken = new Set(validCodes);
+
+          if (validCodes.length !== obj.taken.length) {
+            showWarning('Skipped imported courses that are not part of the current curriculum.');
+          }
+
+          save();
+          renderAll();
+        } catch (error) {
+          showWarning('Unable to import that plan file.');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    document.getElementById('eligibleOnly').addEventListener('change', (e) => {
+      showOnlyEligible = e.target.checked; renderAll();
+    });
+
+    document.getElementById('targetTerm').addEventListener('change', (e) => {
+      targetTerm = e.target.value; renderAll();
+    });
+
+    // Initialize with first curriculum
+    initializeCurriculum(defaultCurriculumId());
+  </script>
+</body>
+</html>

@@ -1,0 +1,756 @@
+{
+  "metadata": {
+    "id": "industrial-engineering-2017-2024",
+    "name": "Industrial Engineering (Fall 2017 to Spring 2024)",
+    "description": "Industrial Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-17"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 1,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE342",
+      "name": "Probability and Statistics for Engineers",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "CME201"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE365",
+      "name": "Work Productivity Analysis",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE345",
+      "name": "Regression Applications and Forecasting in Engineering",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "IE471",
+      "name": "Operations Research I",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH218"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "STAT362",
+      "name": "Elements of Statistical Computing",
+      "credits": 2,
+      "term": "F3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "MGMT340",
+      "name": "Introduction to Organizations",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ENGL161"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE446",
+      "name": "Advanced Quality Control and Reliability",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE442",
+      "name": "Design and Analysis of Experiments in Engineering",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE472",
+      "name": "Operations Research II",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CS109",
+        "IE471"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE467",
+      "name": "Discrete Event Computer Simulation Application",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE461",
+      "name": "Safety Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE473",
+      "name": "Stochastic Processes and Queuing Models",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE342",
+        "MATH210"
+      ],
+      "concurrentPrereqs": [
+        "IE471"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "IE380",
+      "name": "Materials and Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME203",
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "IE201"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE365"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE463",
+      "name": "Manufacturing Facilities Design and Material Handling",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473",
+        "IE365",
+        "IE201",
+        "IE467"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE466",
+      "name": "Production Operation Analytics and Inventory Control",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "IE473"
+      ],
+      "concurrentPrereqs": [
+        "IE345",
+        "IE472"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "IE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2,
+      "recommendationGate": {
+        "afterCompleted": [
+          "IE396"
+        ]
+      }
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    },
+    {
+      "code": "IE397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [
+        "IE396"
+      ],
+      "concurrentPrereqs": [
+        "IE499"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "NONIEELEC",
+      "name": "Non-IE Elective",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1,
+      "isPlaceholder": true
+    }
+  ]
+}

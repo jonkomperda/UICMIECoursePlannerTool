@@ -1,0 +1,732 @@
+{
+  "metadata": {
+    "id": "mechanical-engineering",
+    "name": "Mechanical Engineering",
+    "description": "Standard MIE B.S. curriculum",
+    "version": "1.0",
+    "lastUpdated": "2024-01-01"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "pw": 2,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "pw": 7,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "pw": 1,
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "pw": 6,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "pw": 2,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "pw": 6,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME250",
+      "name": "Introduction to Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S1",
+      "pw": 4,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "pw": 5,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "IE201",
+      "name": "Financial Engineering",
+      "credits": 3,
+      "term": "F2",
+      "pw": 3,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CME201",
+      "name": "Statics",
+      "credits": 3,
+      "term": "F2",
+      "pw": 5,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "pw": 1,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ECE210",
+      "name": "Circuits",
+      "credits": 3,
+      "term": "F2",
+      "pw": 2,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH220",
+      "name": "Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "pw": 4,
+      "prerequisites": [
+        "MATH210"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "CME203",
+      "name": "Strength of Materials",
+      "credits": 3,
+      "term": "S2",
+      "pw": 4,
+      "prerequisites": [
+        "CME201"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME205",
+      "name": "Intro to Thermodynamics",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "PHYS141",
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "MATH310",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "pw": 2,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S2",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME210",
+      "name": "Dynamics",
+      "credits": 3,
+      "term": "F3",
+      "pw": 3,
+      "prerequisites": [
+        "CME201"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME211",
+      "name": "Fluid Mechanics",
+      "credits": 4,
+      "term": "F3",
+      "pw": 2,
+      "prerequisites": [
+        "MATH220",
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME328",
+      "name": "Numerical Methods",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CS109",
+        "MATH310"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME320",
+      "name": "Mechanisms and Dynamics of Machinery",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME380",
+      "name": "Manufacturing Process Principles",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F3",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME347",
+      "name": "Engineering Design and Graphics",
+      "credits": 3,
+      "term": "S3",
+      "pw": 3,
+      "prerequisites": [
+        "MATH220",
+        "PHYS141"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME321",
+      "name": "Heat Transfer",
+      "credits": 4,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "ME210"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME370",
+      "name": "Mechanical Engineering Design",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME250"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "S3",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME312",
+      "name": "Dynamic Systems and Control",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "MATH220",
+        "CS109"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [
+        "ECE210"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME341",
+      "name": "Experimental Methods in Mechanical Engineering",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "CME203",
+        "ME211"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "IE342",
+      "name": "Probability & Stats for Engr",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ]
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "F4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "ME396",
+      "name": "Senior Design I (Fall Only)",
+      "credits": 3,
+      "term": "F4",
+      "pw": 2,
+      "prerequisites": [
+        "IE201",
+        "ME347"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall"
+      ]
+    },
+    {
+      "code": "ME397",
+      "name": "Senior Design II (Spring Only)",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [
+        "ME396"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Spring"
+      ]
+    },
+    {
+      "code": "ME499",
+      "name": "Undergrad Degree Audit (0 cr)",
+      "credits": 0,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [
+        "ME397"
+      ],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "recommendationGate": {
+        "afterCompleted": [
+          "ME396"
+        ]
+      }
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "TECH4",
+      "name": "Technical Elective #4",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    },
+    {
+      "code": "FREEELEC",
+      "name": "Free Elective",
+      "credits": 3,
+      "term": "S4",
+      "pw": 1,
+      "prerequisites": [],
+      "corequisites": [],
+      "concurrentPrereqs": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true
+    }
+  ]
+}

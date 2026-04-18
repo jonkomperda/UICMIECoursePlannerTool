@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2024-01-01"
+  },
+  "curricula": [
+    {
+      "id": "mechanical-engineering",
+      "name": "Mechanical Engineering",
+      "description": "Standard MIE B.S. curriculum with proper corequisite handling",
+      "version": "1.0"
+    },
+    {
+      "id": "industrial-engineering",
+      "name": "Industrial Engineering",
+      "description": "Industrial Engineering curriculum based on the Fall 2024 and later flowchart",
+      "version": "1.0"
+    },
+    {
+      "id": "engineering-management",
+      "name": "Engineering Management",
+      "description": "Engineering Management curriculum based on the Fall 2017 and after flowchart",
+      "version": "1.0"
+    },
+    {
+      "id": "mechanical-engineering-2017-2024",
+      "name": "Mechanical Engineering (Fall 2017 to Spring 2024)",
+      "description": "Mechanical Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "version": "1.0"
+    },
+    {
+      "id": "industrial-engineering-2017-2024",
+      "name": "Industrial Engineering (Fall 2017 to Spring 2024)",
+      "description": "Industrial Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "version": "1.0"
+    }
+  ]
+}
