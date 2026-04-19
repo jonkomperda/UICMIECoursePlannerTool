@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "lastUpdated": "2024-01-01"
+    "lastUpdated": "2026-04-19"
   },
   "curricula": [
     {
@@ -20,6 +20,24 @@
       "id": "engineering-management",
       "name": "Engineering Management",
       "description": "Engineering Management curriculum based on the Fall 2017 and after flowchart",
+      "version": "1.0"
+    },
+    {
+      "id": "electrical-engineering",
+      "name": "Electrical Engineering-experimental",
+      "description": "Electrical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+      "version": "1.0"
+    },
+    {
+      "id": "computer-engineering",
+      "name": "Computer Engineering-experimental",
+      "description": "Computer Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+      "version": "1.0"
+    },
+    {
+      "id": "biomedical-engineering",
+      "name": "Biomedical Engineering-experimental",
+      "description": "Biomedical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
       "version": "1.0"
     },
     {

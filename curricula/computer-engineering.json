@@ -1,0 +1,690 @@
+{
+  "metadata": {
+    "id": "computer-engineering",
+    "name": "Computer Engineering-experimental",
+    "description": "Computer Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-19"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 8
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ECE115",
+      "name": "Introduction to Electrical and Computer Engineering",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 7
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CS107",
+      "name": "Introduction to Computing and Programming",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "CS151",
+      "name": "Mathematical Foundations of Computing",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "CS107"
+      ],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ECE265",
+      "name": "Introduction to Logic Design",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [
+        "MATH180",
+        "ECE115"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "PHYS260",
+      "name": "Introduction to Thermal Physics",
+      "credits": 2,
+      "term": "S2",
+      "prerequisites": [
+        "PHYS142"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE225",
+      "name": "Circuit Analysis",
+      "credits": 4,
+      "term": "S2",
+      "prerequisites": [
+        "PHYS142",
+        "ECE115"
+      ],
+      "concurrentPrereqs": [
+        "MATH220"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ECE266",
+      "name": "Introduction to Embedded Systems",
+      "credits": 4,
+      "term": "S2",
+      "prerequisites": [
+        "CS107"
+      ],
+      "concurrentPrereqs": [
+        "ECE265"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CS251",
+      "name": "Data Structures",
+      "credits": 4,
+      "term": "S2",
+      "prerequisites": [
+        "CS107",
+        "CS151"
+      ],
+      "concurrentPrereqs": [
+        "ECE266"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE310",
+      "name": "Discrete and Continuous Signals and Systems",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH220"
+      ],
+      "concurrentPrereqs": [
+        "ECE225"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE340",
+      "name": "Electronics I",
+      "credits": 4,
+      "term": "F3",
+      "prerequisites": [
+        "ECE225"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ECE341",
+      "name": "Probability and Random Processes for Engineers",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ECE366",
+      "name": "Computer Organization",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "ECE266"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "ECE333",
+      "name": "Computer Communication Networks I",
+      "credits": 4,
+      "term": "S3",
+      "prerequisites": [
+        "ECE341",
+        "CS107"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE465",
+      "name": "Digital Systems Design",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "PHYS142",
+        "ECE366"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE466",
+      "name": "Computer Architecture",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "ECE366"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ECE467",
+      "name": "Introduction to VLSI Design",
+      "credits": 4,
+      "term": "S3",
+      "prerequisites": [
+        "ECE340"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "ECE396",
+      "name": "Senior Design I",
+      "credits": 2,
+      "term": "F4",
+      "prerequisites": [
+        "ENGL161",
+        "ECE225",
+        "ECE340"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 4,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "ECE397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [
+        "ECE396"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 4,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH4",
+      "name": "Technical Elective #4",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH5",
+      "name": "Technical Elective #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "ECE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "recommendationGate": {
+        "finalTermOnly": true
+      },
+      "pw": 1
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    }
+  ]
+}

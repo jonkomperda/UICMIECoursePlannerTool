@@ -1,0 +1,763 @@
+{
+  "metadata": {
+    "id": "biomedical-engineering",
+    "name": "Biomedical Engineering-experimental",
+    "description": "Biomedical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-19"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "BME101",
+      "name": "Introduction to Biomedical Engineering",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Orientation",
+      "credits": 0,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 8
+    },
+    {
+      "code": "BIOS110",
+      "name": "Biology of Cells and Organisms",
+      "credits": 4,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "BME102",
+      "name": "Biomedical Engineering Freshman Seminar",
+      "credits": 1,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "term": "S1",
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 7
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "CHEM124",
+      "name": "Chemical Dynamics",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM125"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CHEM125",
+      "name": "Foundations of Chemical Inquiry II",
+      "credits": 2,
+      "term": "S1",
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM124"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 6
+    },
+    {
+      "code": "BIOSELECT1",
+      "name": "Biology Selective #1",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 2
+    },
+    {
+      "code": "BME240",
+      "name": "Modeling Physiological Data and Systems",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "BIOS110",
+        "MATH180",
+        "CS109"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "BME250",
+      "name": "Clinical Problems in Biomedical Engineering",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "BME101",
+        "BME102"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "BME205",
+      "name": "Biomedical Engineering Thermodynamics",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "term": "S2",
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "MATH218",
+      "name": "Applied Linear Algebra",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 5
+    },
+    {
+      "code": "BME310",
+      "name": "Biological Systems Analysis",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH220",
+        "MATH218",
+        "BME240"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "BME325",
+      "name": "Biotransport",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "BIOS110",
+        "MATH220",
+        "BME205"
+      ],
+      "concurrentPrereqs": [
+        "MATH218"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "BME339",
+      "name": "Biostatistics I",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH210",
+        "BME240"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "ECE210",
+      "name": "Electrical Circuit Analysis",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 4
+    },
+    {
+      "code": "CONC1",
+      "name": "Concentration Area Elective #1",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "BME332",
+      "name": "Bioinstrumentation and Measurements I",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "BIOS110",
+        "ECE210"
+      ],
+      "concurrentPrereqs": [
+        "BME310"
+      ],
+      "corequisites": [
+        "BME333"
+      ],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "BME333",
+      "name": "Bioinstrumentation and Measurements Laboratory I",
+      "credits": 2,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "BME332"
+      ],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 3
+    },
+    {
+      "code": "BME399",
+      "name": "Professional Development for Biomedical Engineers",
+      "credits": 0,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "PRODDEV1",
+      "name": "Biomedical Product Development Elective",
+      "credits": 2,
+      "term": "S3",
+      "prerequisites": [
+        "BME250"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CME260",
+      "name": "Properties of Materials",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123",
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "CONC2",
+      "name": "Concentration Area Elective #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "BME396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "BME250"
+      ],
+      "concurrentPrereqs": [
+        "BME332",
+        "BME333",
+        "BME339"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 2
+    },
+    {
+      "code": "BME460",
+      "name": "Materials in Biomedical Engineering",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CME260",
+        "BIOSELECT1"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CONC3",
+      "name": "Concentration Area Elective #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 4,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "BME397",
+      "name": "Senior Design II",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [
+        "BME396",
+        "BME332",
+        "BME333",
+        "BME339"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "pw": 1
+    },
+    {
+      "code": "CAPLECT1",
+      "name": "Capstone Lecture Elective",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CAPLAB1"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CAPLAB1",
+      "name": "Capstone Laboratory Elective",
+      "credits": 2,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CAPLECT1"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CONC4",
+      "name": "Concentration Area Elective #4",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    }
+  ]
+}
