@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Click classes you have taken</title>
+  <desc id="desc">Illustration of course boxes with several marked as completed.</desc>
+  <rect width="900" height="430" fill="#eef3f9"/>
+  <rect x="36" y="32" width="828" height="366" rx="26" fill="#ffffff" stroke="#001e62" stroke-opacity="0.16" stroke-width="3"/>
+  <text x="68" y="86" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="700">Step 2: Click classes you have taken</text>
+  <text x="68" y="118" fill="#46546f" font-family="Helvetica, Arial, sans-serif" font-size="20">Each click marks a course as completed in your map.</text>
+
+  <rect x="70" y="156" width="220" height="86" rx="20" fill="#e8eef5" stroke="#9aa8bb" stroke-width="2"/>
+  <text x="94" y="190" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">MATH 180</text>
+  <text x="94" y="220" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">Calculus I</text>
+
+  <rect x="318" y="156" width="220" height="86" rx="20" fill="#cfd6df" stroke="#7d8898" stroke-width="2"/>
+  <text x="342" y="190" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" text-decoration="line-through">PHYS 141</text>
+  <text x="342" y="220" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18" text-decoration="line-through">Physics I</text>
+  <text x="466" y="207" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="700">✓</text>
+
+  <rect x="566" y="156" width="220" height="86" rx="20" fill="#e8eef5" stroke="#9aa8bb" stroke-width="2"/>
+  <text x="590" y="190" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">ECE 115</text>
+  <text x="590" y="220" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">Intro to ECE</text>
+
+  <rect x="70" y="266" width="220" height="86" rx="20" fill="#cfd6df" stroke="#7d8898" stroke-width="2"/>
+  <text x="94" y="300" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" text-decoration="line-through">ENGL 160</text>
+  <text x="94" y="330" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18" text-decoration="line-through">Academic Writing I</text>
+  <text x="218" y="317" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="700">✓</text>
+
+  <rect x="318" y="266" width="220" height="86" rx="20" fill="#e8eef5" stroke="#9aa8bb" stroke-width="2"/>
+  <text x="342" y="300" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">CHEM 122</text>
+  <text x="342" y="330" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">General Chemistry I</text>
+
+  <rect x="566" y="266" width="220" height="86" rx="20" fill="#cfd6df" stroke="#7d8898" stroke-width="2"/>
+  <text x="590" y="300" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" text-decoration="line-through">CHEM 123</text>
+  <text x="590" y="330" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18" text-decoration="line-through">General Chem Lab</text>
+  <text x="714" y="317" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="700">✓</text>
+
+  <circle cx="628" cy="120" r="30" fill="#41b6e6"/>
+  <path d="M628 102 v36" stroke="#001e62" stroke-width="4" stroke-linecap="round"/>
+  <path d="M610 120 h36" stroke="#001e62" stroke-width="4" stroke-linecap="round"/>
+</svg>

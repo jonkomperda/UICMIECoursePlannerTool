@@ -23,6 +23,18 @@
       "version": "1.0"
     },
     {
+      "id": "mechanical-engineering-2017-2024",
+      "name": "Mechanical Engineering (Fall 2017 to Spring 2024)",
+      "description": "Mechanical Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "version": "1.0"
+    },
+    {
+      "id": "industrial-engineering-2017-2024",
+      "name": "Industrial Engineering (Fall 2017 to Spring 2024)",
+      "description": "Industrial Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "version": "1.0"
+    },
+    {
       "id": "electrical-engineering",
       "name": "Electrical Engineering-experimental",
       "description": "Electrical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
@@ -35,21 +47,33 @@
       "version": "1.0"
     },
     {
+      "id": "engineering-physics",
+      "name": "Engineering Physics-experimental",
+      "description": "Engineering Physics curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+      "version": "1.0"
+    },
+    {
       "id": "biomedical-engineering",
       "name": "Biomedical Engineering-experimental",
       "description": "Biomedical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
       "version": "1.0"
     },
     {
-      "id": "mechanical-engineering-2017-2024",
-      "name": "Mechanical Engineering (Fall 2017 to Spring 2024)",
-      "description": "Mechanical Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "id": "civil-engineering",
+      "name": "Civil Engineering-experimental",
+      "description": "Civil Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
       "version": "1.0"
     },
     {
-      "id": "industrial-engineering-2017-2024",
-      "name": "Industrial Engineering (Fall 2017 to Spring 2024)",
-      "description": "Industrial Engineering curriculum based on the Fall 2017 to Spring 2024 flowchart",
+      "id": "environmental-engineering",
+      "name": "Environmental Engineering-experimental",
+      "description": "Environmental Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+      "version": "1.0"
+    },
+    {
+      "id": "chemical-engineering",
+      "name": "Chemical Engineering-experimental",
+      "description": "Chemical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
       "version": "1.0"
     }
   ]

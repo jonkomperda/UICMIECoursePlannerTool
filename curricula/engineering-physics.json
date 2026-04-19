@@ -1,0 +1,698 @@
+{
+  "metadata": {
+    "id": "engineering-physics",
+    "name": "Engineering Physics-experimental",
+    "description": "Engineering Physics curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-19"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 8
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 2
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 2
+    },
+    {
+      "code": "ECE115",
+      "name": "Introduction to Electrical and Computer Engineering",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F1",
+      "pw": 5
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 4
+    },
+    {
+      "code": "ENGR100",
+      "name": "Engineering Success Seminar for Freshmen",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 7
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 6
+    },
+    {
+      "code": "CS107",
+      "name": "Introduction to Computing and Programming",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 1
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 3
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "S1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 6
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 5
+    },
+    {
+      "code": "CME260",
+      "name": "Properties of Materials",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123",
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 1
+    },
+    {
+      "code": "MATHELEC1",
+      "name": "Math-Related Elective",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "F2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "ECE225",
+      "name": "Circuit Analysis",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS142",
+        "ECE115"
+      ],
+      "concurrentPrereqs": [
+        "MATH220"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 4
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 5
+    },
+    {
+      "code": "PHYS240",
+      "name": "Fundamentals of Modern Quantum Theory",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181",
+        "PHYS142"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 2
+    },
+    {
+      "code": "PHYS245",
+      "name": "Introduction to Vibrations, Waves, and Thermal Physics",
+      "credits": 4,
+      "prerequisites": [
+        "MATH181",
+        "PHYS142"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 2
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S2",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "PHYS215",
+      "name": "Computational and Mathematical Methods for the Physical Sciences",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS142",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [
+        "MATH210"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 2
+    },
+    {
+      "code": "PHYS481",
+      "name": "Modern Experimental Physics I",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS240"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "PHYS499",
+      "name": "Survey of Physics Problems",
+      "credits": 1,
+      "prerequisites": [
+        "PHYS240"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "ECE346",
+      "name": "Solid State Device Theory",
+      "credits": 4,
+      "prerequisites": [
+        "MATH220",
+        "ECE115",
+        "PHYS142"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 2
+    },
+    {
+      "code": "ME211",
+      "name": "Fluid Mechanics I",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS141",
+        "MATH220"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "PHYS441",
+      "name": "Theoretical Mechanics",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS215"
+      ],
+      "concurrentPrereqs": [
+        "PHYS245"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 1
+    },
+    {
+      "code": "ECE310",
+      "name": "Discrete and Continuous Signals and Systems",
+      "credits": 3,
+      "prerequisites": [
+        "MATH220"
+      ],
+      "concurrentPrereqs": [
+        "ECE225"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 3
+    },
+    {
+      "code": "ECE322",
+      "name": "Introduction to Electromagnetics and Applications",
+      "credits": 4,
+      "prerequisites": [
+        "ECE225"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 3
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "PHYS411",
+      "name": "Quantum Mechanics I",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS215",
+        "PHYS240",
+        "PHYS245"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 1
+    },
+    {
+      "code": "ECE396",
+      "name": "Senior Design I",
+      "credits": 2,
+      "prerequisites": [
+        "ENGL161",
+        "ECE225",
+        "ECE310",
+        "ECE322"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 2
+    },
+    {
+      "code": "ECE421",
+      "name": "Introduction to Antennas and Wireless Propagation",
+      "credits": 3,
+      "prerequisites": [
+        "ECE225",
+        "ECE322"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 1
+    },
+    {
+      "code": "ECE440",
+      "name": "Nanoelectronics",
+      "credits": 3,
+      "prerequisites": [
+        "ECE346"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 1
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "BME450",
+      "name": "Molecular Biophysics of the Cell",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS245"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "ECE397",
+      "name": "Senior Design II",
+      "credits": 2,
+      "prerequisites": [
+        "ECE396"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "ECE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "recommendationGate": {
+        "finalTermOnly": true
+      },
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    }
+  ]
+}

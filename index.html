@@ -584,14 +584,28 @@
           <div class="input-shell">
             <label for="curriculumSelector">Curriculum Selection</label>
             <select id="curriculumSelector" class="text-lg md:text-xl">
-              <option value="mechanical-engineering">Mechanical Engineering</option>
-              <option value="industrial-engineering">Industrial Engineering</option>
-              <option value="engineering-management">Engineering Management</option>
-              <option value="electrical-engineering">Electrical Engineering-experimental</option>
-              <option value="computer-engineering">Computer Engineering-experimental</option>
-              <option value="biomedical-engineering">Biomedical Engineering-experimental</option>
-              <option value="mechanical-engineering-2017-2024">Mechanical Engineering (Fall 2017 to Spring 2024)</option>
-              <option value="industrial-engineering-2017-2024">Industrial Engineering (Fall 2017 to Spring 2024)</option>
+              <optgroup label="MIE">
+                <option value="mechanical-engineering">Mechanical Engineering</option>
+                <option value="industrial-engineering">Industrial Engineering</option>
+                <option value="engineering-management">Engineering Management</option>
+                <option value="mechanical-engineering-2017-2024">Mechanical Engineering (Fall 2017 to Spring 2024)</option>
+                <option value="industrial-engineering-2017-2024">Industrial Engineering (Fall 2017 to Spring 2024)</option>
+              </optgroup>
+              <optgroup label="ECE">
+                <option value="electrical-engineering">Electrical Engineering-experimental</option>
+                <option value="computer-engineering">Computer Engineering-experimental</option>
+                <option value="engineering-physics">Engineering Physics-experimental</option>
+              </optgroup>
+              <optgroup label="BME">
+                <option value="biomedical-engineering">Biomedical Engineering-experimental</option>
+              </optgroup>
+              <optgroup label="CME">
+                <option value="civil-engineering">Civil Engineering-experimental</option>
+                <option value="environmental-engineering">Environmental Engineering-experimental</option>
+              </optgroup>
+              <optgroup label="CHE">
+                <option value="chemical-engineering">Chemical Engineering-experimental</option>
+              </optgroup>
             </select>
           </div>
           <div class="mt-4 space-y-2">
@@ -744,11 +758,15 @@
       { id: 'mechanical-engineering', name: 'Mechanical Engineering' },
       { id: 'industrial-engineering', name: 'Industrial Engineering' },
       { id: 'engineering-management', name: 'Engineering Management' },
+      { id: 'mechanical-engineering-2017-2024', name: 'Mechanical Engineering (Fall 2017 to Spring 2024)' },
+      { id: 'industrial-engineering-2017-2024', name: 'Industrial Engineering (Fall 2017 to Spring 2024)' },
       { id: 'electrical-engineering', name: 'Electrical Engineering-experimental' },
       { id: 'computer-engineering', name: 'Computer Engineering-experimental' },
+      { id: 'engineering-physics', name: 'Engineering Physics-experimental' },
       { id: 'biomedical-engineering', name: 'Biomedical Engineering-experimental' },
-      { id: 'mechanical-engineering-2017-2024', name: 'Mechanical Engineering (Fall 2017 to Spring 2024)' },
-      { id: 'industrial-engineering-2017-2024', name: 'Industrial Engineering (Fall 2017 to Spring 2024)' }
+      { id: 'civil-engineering', name: 'Civil Engineering-experimental' },
+      { id: 'environmental-engineering', name: 'Environmental Engineering-experimental' },
+      { id: 'chemical-engineering', name: 'Chemical Engineering-experimental' }
     ];
     const GENED_CATEGORY_LABELS = {
       'mechanical-engineering': {
@@ -782,6 +800,55 @@
         GENED1: 'Understanding the Past',
         GENED2: 'Understanding the Creative Arts',
         GENED3: 'Exploring World Cultures'
+      },
+      'electrical-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'computer-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'engineering-physics': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'biomedical-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Individual and Society',
+        GENED4: 'Understanding the Past',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'civil-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'environmental-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
+      },
+      'chemical-engineering': {
+        GENED1: 'Exploring World Cultures',
+        GENED2: 'Understanding the Creative Arts',
+        GENED3: 'Understanding the Past',
+        GENED4: 'Understanding the Individual and Society',
+        GENED5: 'Understanding U.S. Society'
       }
     };
 

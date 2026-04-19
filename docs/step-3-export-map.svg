@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Export the curriculum map</title>
+  <desc id="desc">Illustration of the export button and recommended courses circled on the planner.</desc>
+  <rect width="900" height="430" fill="#eef3f9"/>
+  <rect x="36" y="32" width="828" height="366" rx="26" fill="#ffffff" stroke="#001e62" stroke-opacity="0.16" stroke-width="3"/>
+  <text x="68" y="86" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="700">Step 3: Export the curriculum map</text>
+  <text x="68" y="118" fill="#46546f" font-family="Helvetica, Arial, sans-serif" font-size="20">The planner circles the recommended classes for you automatically.</text>
+
+  <rect x="68" y="150" width="248" height="58" rx="29" fill="#001e62"/>
+  <text x="102" y="187" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Download image (.png)</text>
+
+  <rect x="68" y="236" width="210" height="84" rx="20" fill="#ffffff" stroke="#41b6e6" stroke-width="3"/>
+  <text x="92" y="270" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">ECE 225</text>
+  <text x="92" y="300" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">Circuit Analysis</text>
+  <ellipse cx="173" cy="278" rx="112" ry="56" fill="none" stroke="#d50032" stroke-width="6"/>
+
+  <rect x="332" y="236" width="210" height="84" rx="20" fill="#ffffff" stroke="#41b6e6" stroke-width="3"/>
+  <text x="356" y="270" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">MATH 220</text>
+  <text x="356" y="300" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">Diff. Equations</text>
+  <ellipse cx="437" cy="278" rx="112" ry="56" fill="none" stroke="#d50032" stroke-width="6"/>
+
+  <rect x="596" y="236" width="210" height="84" rx="20" fill="#ffffff" stroke="#9aa8bb" stroke-width="2"/>
+  <text x="620" y="270" fill="#001e62" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">GENED 3</text>
+  <text x="620" y="300" fill="#4a556f" font-family="Helvetica, Arial, sans-serif" font-size="18">Gen Ed</text>
+
+  <path d="M366 180 c36 0 36 44 72 44" fill="none" stroke="#41b6e6" stroke-width="6" stroke-linecap="round"/>
+  <path d="M426 209 l14 15 l16 -18" fill="none" stroke="#41b6e6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

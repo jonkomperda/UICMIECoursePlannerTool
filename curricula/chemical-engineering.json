@@ -1,0 +1,752 @@
+{
+  "metadata": {
+    "id": "chemical-engineering",
+    "name": "Chemical Engineering-experimental",
+    "description": "Chemical Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-19"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGR100",
+      "name": "Engineering Success Seminar for Freshmen",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 1
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 2
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 9
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 4
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 4
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F1",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 8
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 8
+    },
+    {
+      "code": "CHEM124",
+      "name": "Chemical Dynamics",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM125"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 3
+    },
+    {
+      "code": "CHEM125",
+      "name": "Foundations of Chemical Inquiry II",
+      "credits": 2,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM124"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 3
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 1
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 2
+    },
+    {
+      "code": "CHE201",
+      "name": "Introduction To Thermodynamics",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F2",
+      "pw": 7
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 7
+    },
+    {
+      "code": "CHEM232",
+      "name": "Structure and Function",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F2",
+      "pw": 3
+    },
+    {
+      "code": "CHE205",
+      "name": "Computational Methods in Chemical Engineering",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "CHE201",
+        "MATH210"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 6
+    },
+    {
+      "code": "CHE210",
+      "name": "Material and Energy Balances",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "CHE201",
+        "CHE205"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 5
+    },
+    {
+      "code": "CHE230",
+      "name": "Molecular Systems in Chemical Engineering",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM232"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 2
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 5
+    },
+    {
+      "code": "CHEM222",
+      "name": "Analytical Chemistry",
+      "credits": 4,
+      "prerequisites": [
+        "CHEM124",
+        "CHEM125"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 2
+    },
+    {
+      "code": "CHE301",
+      "name": "Chemical Engineering Thermodynamics",
+      "credits": 3,
+      "prerequisites": [
+        "CHE201",
+        "CHE205"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 4
+    },
+    {
+      "code": "CHE311",
+      "name": "Transport Phenomena I",
+      "credits": 3,
+      "prerequisites": [
+        "CHE205",
+        "MATH220"
+      ],
+      "concurrentPrereqs": [
+        "CHE210"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 4
+    },
+    {
+      "code": "CHEM233",
+      "name": "Synthesis Techniques Laboratory",
+      "credits": 2,
+      "prerequisites": [
+        "CHEM232"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "CHEM234",
+      "name": "Chemical Synthesis",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM232",
+        "CHEM124",
+        "CHEM125"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "CHEM342",
+      "name": "Physical Chemistry I",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM222",
+        "PHYS142",
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CHE312",
+      "name": "Transport Phenomena II",
+      "credits": 3,
+      "prerequisites": [
+        "CHE311"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 3
+    },
+    {
+      "code": "CHE313",
+      "name": "Transport Phenomena III",
+      "credits": 3,
+      "prerequisites": [
+        "CHE301"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 3
+    },
+    {
+      "code": "CHE321",
+      "name": "Chemical Reaction Engineering",
+      "credits": 3,
+      "prerequisites": [
+        "CHE210",
+        "MATH220"
+      ],
+      "concurrentPrereqs": [
+        "CHE301"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 3
+    },
+    {
+      "code": "CME260",
+      "name": "Properties of Materials",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123",
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 1
+    },
+    {
+      "code": "ECE210",
+      "name": "Electrical Circuit Analysis",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 1
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "SELECT1",
+      "name": "Selective (CHE 330 or CHEM 346)",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [
+        "CHE230",
+        "CHEM232"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CHE381",
+      "name": "Chemical Engineering Laboratory I",
+      "credits": 2,
+      "prerequisites": [
+        "CHE312"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 2
+    },
+    {
+      "code": "CHE396",
+      "name": "Senior Design I",
+      "credits": 3,
+      "prerequisites": [
+        "CHE312",
+        "CHE313"
+      ],
+      "concurrentPrereqs": [
+        "CHE321"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 2
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CHE499",
+      "name": "Professional Development Seminar",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "CHE396"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CHE341",
+      "name": "Chemical Process Control",
+      "credits": 3,
+      "prerequisites": [
+        "MATH220",
+        "CHE312",
+        "CHE313",
+        "CHE321"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "CHE382",
+      "name": "Chemical Engineering Laboratory II",
+      "credits": 2,
+      "prerequisites": [
+        "CHE381"
+      ],
+      "concurrentPrereqs": [
+        "CHE313"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "CHE397",
+      "name": "Senior Design II",
+      "credits": 4,
+      "prerequisites": [
+        "CHE396"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "OUTMAJOR1",
+      "name": "Outside Major Elective",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    }
+  ]
+}

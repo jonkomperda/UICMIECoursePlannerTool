@@ -1,0 +1,723 @@
+{
+  "metadata": {
+    "id": "environmental-engineering",
+    "name": "Environmental Engineering-experimental",
+    "description": "Environmental Engineering curriculum based on the 2025-2026 UIC catalog sample schedule. Experimental and not yet validated end-to-end.",
+    "version": "1.0",
+    "lastUpdated": "2026-04-19"
+  },
+  "terms": [
+    {
+      "id": "F1",
+      "title": "First Year \u2014 Fall"
+    },
+    {
+      "id": "S1",
+      "title": "First Year \u2014 Spring"
+    },
+    {
+      "id": "F2",
+      "title": "Second Year \u2014 Fall"
+    },
+    {
+      "id": "S2",
+      "title": "Second Year \u2014 Spring"
+    },
+    {
+      "id": "F3",
+      "title": "Third Year \u2014 Fall"
+    },
+    {
+      "id": "S3",
+      "title": "Third Year \u2014 Spring"
+    },
+    {
+      "id": "F4",
+      "title": "Fourth Year \u2014 Fall"
+    },
+    {
+      "id": "S4",
+      "title": "Fourth Year \u2014 Spring"
+    }
+  ],
+  "courses": [
+    {
+      "code": "ENGR100",
+      "name": "Engineering Success Seminar for Freshmen",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 1
+    },
+    {
+      "code": "CHEM122",
+      "name": "General Chemistry I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM123"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 6
+    },
+    {
+      "code": "CHEM123",
+      "name": "General Chem Lab",
+      "credits": 2,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [
+        "CHEM122"
+      ],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 6
+    },
+    {
+      "code": "CME119",
+      "name": "Introduction to Environmental Engineering and Science",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F1",
+      "pw": 1
+    },
+    {
+      "code": "ENGL160",
+      "name": "Academic Writing I",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 2
+    },
+    {
+      "code": "MATH180",
+      "name": "Calculus I",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F1",
+      "pw": 7
+    },
+    {
+      "code": "CME197",
+      "name": "Introduction to Civil and Environmental Engineering",
+      "credits": 0,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 1
+    },
+    {
+      "code": "CHEM124",
+      "name": "Chemical Dynamics",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 5
+    },
+    {
+      "code": "CS109",
+      "name": "Programming for Engineers",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 1
+    },
+    {
+      "code": "ENGL161",
+      "name": "Academic Writing II",
+      "credits": 3,
+      "prerequisites": [
+        "ENGL160"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 1
+    },
+    {
+      "code": "MATH181",
+      "name": "Calculus II",
+      "credits": 4,
+      "prerequisites": [
+        "MATH180"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 6
+    },
+    {
+      "code": "PHYS141",
+      "name": "Physics I: Mechanics",
+      "credits": 4,
+      "prerequisites": [],
+      "concurrentPrereqs": [
+        "MATH180"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S1",
+      "pw": 6
+    },
+    {
+      "code": "CME211",
+      "name": "Fluid Mechanics and Hydraulics",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181",
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F2",
+      "pw": 5
+    },
+    {
+      "code": "CME297",
+      "name": "Civil and Environmental Engineering Drawing and Design",
+      "credits": 3,
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F2",
+      "pw": 1
+    },
+    {
+      "code": "CHEM125",
+      "name": "Foundations of Chemical Inquiry II",
+      "credits": 2,
+      "prerequisites": [
+        "CHEM124"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F2",
+      "pw": 4
+    },
+    {
+      "code": "MATH210",
+      "name": "Calculus III",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 2
+    },
+    {
+      "code": "ME205",
+      "name": "Introduction to Thermodynamics",
+      "credits": 3,
+      "prerequisites": [
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 4
+    },
+    {
+      "code": "PHYS142",
+      "name": "Physics II: E&M",
+      "credits": 4,
+      "prerequisites": [
+        "PHYS141"
+      ],
+      "concurrentPrereqs": [
+        "MATH181"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "F2",
+      "pw": 1
+    },
+    {
+      "code": "CHE210",
+      "name": "Material and Energy Balances",
+      "credits": 4,
+      "prerequisites": [
+        "ME205"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 1
+    },
+    {
+      "code": "CME207",
+      "name": "Engineering Probability and Economics",
+      "credits": 3,
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 1
+    },
+    {
+      "code": "CME260",
+      "name": "Properties of Materials",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122",
+        "CHEM123",
+        "PHYS141",
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 1
+    },
+    {
+      "code": "CME322",
+      "name": "Environmental Engineering",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM122"
+      ],
+      "concurrentPrereqs": [
+        "CME211"
+      ],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 4
+    },
+    {
+      "code": "MATH220",
+      "name": "Introduction to Differential Equations",
+      "credits": 3,
+      "prerequisites": [
+        "MATH210"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "term": "S2",
+      "pw": 1
+    },
+    {
+      "code": "CME311",
+      "name": "Water Resources Engineering",
+      "credits": 3,
+      "prerequisites": [
+        "CME211"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 3
+    },
+    {
+      "code": "CME411",
+      "name": "Chemistry for Environmental Professionals",
+      "credits": 3,
+      "prerequisites": [
+        "CHEM124",
+        "CHEM125"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 3
+    },
+    {
+      "code": "CME421",
+      "name": "Water Treatment Design",
+      "credits": 3,
+      "prerequisites": [
+        "CME322"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 3
+    },
+    {
+      "code": "ME450",
+      "name": "Air Pollution Engineering",
+      "credits": 3,
+      "prerequisites": [
+        "ME205"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F3",
+      "pw": 3
+    },
+    {
+      "code": "MATHELEC1",
+      "name": "Math / Statistics Option",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [
+        "MATH181"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED1",
+      "name": "Gen Ed #1",
+      "credits": 3,
+      "term": "F3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CME403",
+      "name": "Hydraulic Design",
+      "credits": 3,
+      "prerequisites": [
+        "CME311"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 1
+    },
+    {
+      "code": "CME422",
+      "name": "Wastewater Treatment Design",
+      "credits": 3,
+      "prerequisites": [
+        "CME322"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S3",
+      "pw": 1
+    },
+    {
+      "code": "EARTHSCI1",
+      "name": "Earth Science Option",
+      "credits": 4,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH1",
+      "name": "Technical Elective #1",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED2",
+      "name": "Gen Ed #2",
+      "credits": 3,
+      "term": "S3",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CME396",
+      "name": "Civil Engineering Systems Design",
+      "credits": 2,
+      "prerequisites": [
+        "CME311",
+        "CME411",
+        "CME421",
+        "ME450"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 2
+    },
+    {
+      "code": "CME427",
+      "name": "Engineering Hydrology",
+      "credits": 3,
+      "prerequisites": [
+        "CME311"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall"
+      ],
+      "term": "F4",
+      "pw": 1
+    },
+    {
+      "code": "TECH2",
+      "name": "Technical Elective #2",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH3",
+      "name": "Technical Elective #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED3",
+      "name": "Gen Ed #3",
+      "credits": 3,
+      "term": "F4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "CME497",
+      "name": "Capstone Design",
+      "credits": 2,
+      "prerequisites": [
+        "CME396"
+      ],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Spring"
+      ],
+      "term": "S4",
+      "pw": 1
+    },
+    {
+      "code": "TECH4",
+      "name": "Technical Elective #4",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "TECH5",
+      "name": "Technical Elective #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED4",
+      "name": "Gen Ed #4",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    },
+    {
+      "code": "GENED5",
+      "name": "Gen Ed #5",
+      "credits": 3,
+      "term": "S4",
+      "prerequisites": [],
+      "concurrentPrereqs": [],
+      "corequisites": [],
+      "offeredIn": [
+        "Fall",
+        "Spring"
+      ],
+      "isPlaceholder": true,
+      "pw": 1
+    }
+  ]
+}
