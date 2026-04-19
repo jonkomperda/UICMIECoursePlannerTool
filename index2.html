@@ -1048,14 +1048,8 @@
 
     function populateCurriculumSelector(data) {
       const selector = document.getElementById('curriculumSelector');
-      selector.innerHTML = '';
-      CURRICULA.forEach(c => {
-        const option = document.createElement('option');
-        option.value = c.id;
-        option.textContent = c.name;
-        selector.appendChild(option);
-      });
-      selector.value = data.metadata?.id || defaultCurriculumId();
+      const selectedId = data.metadata?.id || defaultCurriculumId();
+      selector.value = CURRICULA.some(c => c.id === selectedId) ? selectedId : defaultCurriculumId();
     }
 
     // -----------------------------
