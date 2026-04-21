@@ -713,6 +713,7 @@
           <p class="muted-note mt-3">Import accepts planner JSON exported from this tool. PNG export is for sharing and review, not re-importing.</p>
         </div>
       </div>
+
     </section>
 
     <section id="recommendationSection" class="surface-panel section-panel hero-panel">
@@ -751,6 +752,22 @@
       <section id="termsGrid" class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-5"></section>
     </section>
 
+    <section id="semesterEstimateCard" class="surface-panel-muted p-4 md:p-5">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div class="helper-kicker mb-2">Estimated Time Left</div>
+          <div id="semesterEstimateSummary" class="display-face text-2xl md:text-3xl font-bold text-[var(--ink)]">0 semesters left</div>
+          <p id="semesterEstimateStats" class="muted-note mt-2">0 credits remaining across 0 courses.</p>
+          <p id="semesterEstimateFinish" class="muted-note mt-2">Projected finish term: Completed</p>
+        </div>
+        <p id="semesterEstimateNote" class="muted-note max-w-2xl">
+          This roadmap starts from the upcoming real Fall/Spring term, ignores summer, and does not change when you switch the target-term selector above. It is only an estimate, to help you plan, and can be wrong.
+        </p>
+      </div>
+      <div id="semesterEstimateUnavailable" class="empty-state hidden mt-4"></div>
+      <ul id="semesterEstimateRoadmap" class="mt-4 grid gap-2"></ul>
+    </section>
+
     <section class="mt-8">
       <div class="flex flex-wrap items-center gap-3 text-xs md:text-sm">
         <span class="badge meta-badge">White = locked or not offered</span>
@@ -758,7 +775,7 @@
         <span class="badge meta-badge line-through">Gray = marked taken</span>
         <span class="badge terminal-badge">Red ring = terminal course</span>
       </div>
-      <p class="muted-note mt-3">Course status is also reinforced with text badges and strikethrough, so meaning does not rely on color alone.</p>
+     
     </section>
 
     <footer class="mt-10 space-y-4">
@@ -1216,20 +1233,24 @@
         || a.code.localeCompare(b.code);
     }
 
-    function nextEligible(courses, takenSet, termLabel) {
+    function listEligibleCourses(courses, takenSet, termLabel, { respectViewFilter=false }={}) {
       const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
       return courses
         .filter(c =>
           eligibleNow(c, takenSet, termLabel)
           && recommendationGateMet(c, takenSet, courses)
-          && courseMatchesViewFilter(c, takenSet, termLabel, courses)
+          && (!respectViewFilter || courseMatchesViewFilter(c, takenSet, termLabel, courses))
         )
         .sort((a,b) => compareSelectionPriority(a, b, anchorTerm));
     }
 
-    function getCoreqBundle(courseCode, takenSet) {
+    function nextEligible(courses, takenSet, termLabel) {
+      return listEligibleCourses(courses, takenSet, termLabel, { respectViewFilter: true });
+    }
+
+    function getCoreqBundle(courseCode, takenSet, courses=ENHANCED, lookup=codeMap) {
       const bundle = new Set([courseCode]);
-      const get = (code) => codeMap.get(code);
+      const get = (code) => lookup.get(code);
       let changed = true;
       while (changed) {
         changed = false;
@@ -1239,7 +1260,7 @@
           (c.corequisites||[]).forEach(co => { if (!takenSet.has(co) && !bundle.has(co)) { bundle.add(co); changed = true; } });
           (c.concurrentPrereqs||[]).forEach(p => { if (!takenSet.has(p) && !bundle.has(p)) { bundle.add(p); changed = true; } });
           // Also add courses that have this course as a coreq (bidirectional)
-          ENHANCED.forEach(other => {
+          courses.forEach(other => {
             if (!takenSet.has(other.code) && !bundle.has(other.code) &&
                 (other.corequisites||[]).includes(code)) {
               bundle.add(other.code);
@@ -1251,9 +1272,9 @@
       return Array.from(bundle);
     }
 
-    function ensureBundle(course, takenSet) {
+    function ensureBundle(course, takenSet, courses=ENHANCED, lookup=codeMap) {
       const bundle = new Set([course.code]);
-      const get = (code) => codeMap.get(code);
+      const get = (code) => lookup.get(code);
       let changed = true;
       while (changed) {
         changed = false;
@@ -1263,7 +1284,7 @@
           (c.corequisites||[]).forEach(co => { if (!takenSet.has(co) && !bundle.has(co)) { bundle.add(co); changed = true; } });
           (c.prereqObjs||[]).forEach(p => { if (p.concurrent && !takenSet.has(p.code) && !bundle.has(p.code)) { bundle.add(p.code); changed = true; } });
           // Also add courses that have this course as a coreq (bidirectional)
-          ENHANCED.forEach(other => {
+          courses.forEach(other => {
             if (!takenSet.has(other.code) && !bundle.has(other.code) &&
                 (other.corequisites||[]).includes(code)) {
               bundle.add(other.code);
@@ -1276,13 +1297,14 @@
     }
 
     function packRecommendation(courses, takenSet, termLabel, maxCr=18) {
+      const lookup = new Map(courses.map(course => [course.code, course]));
       const pool = nextEligible(courses, takenSet, termLabel);
       const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
       const chosen = new Set();
       let credits = 0;
       for (const c of pool) {
         if (chosen.has(c.code)) continue;
-        const bundle = ensureBundle(c, takenSet).filter(x => !chosen.has(x.code));
+        const bundle = ensureBundle(c, takenSet, courses, lookup).filter(x => !chosen.has(x.code));
         if (!bundle.every(x => isOfferedThisTerm(x, termLabel))) continue;
         const bundleCr = bundle.reduce((s,x)=>s+(x.credits||0),0);
         if (credits + bundleCr <= maxCr) {
@@ -1290,9 +1312,171 @@
           credits += bundleCr;
         }
       }
-      const list = Array.from(chosen).map(code => codeMap.get(code)).filter(Boolean)
+      const list = Array.from(chosen).map(code => lookup.get(code)).filter(Boolean)
         .sort((a,b) => compareRecommendationDisplayPriority(a, b, anchorTerm));
       return { list, credits };
+    }
+
+    function formatSupportedTermLabel(season, year) {
+      return `${season} ${year}`;
+    }
+
+    function getUpcomingSupportedTerm(now=new Date()) {
+      const month = now.getMonth() + 1;
+      const currentYear = now.getFullYear();
+      if (month === 1) {
+        return {
+          season: 'Spring',
+          year: currentYear,
+          label: formatSupportedTermLabel('Spring', currentYear)
+        };
+      }
+      if (month >= 2 && month <= 8) {
+        return {
+          season: 'Fall',
+          year: currentYear,
+          label: formatSupportedTermLabel('Fall', currentYear)
+        };
+      }
+      return {
+        season: 'Spring',
+        year: currentYear + 1,
+        label: formatSupportedTermLabel('Spring', currentYear + 1)
+      };
+    }
+
+    function getNextSupportedTerm(termInfo) {
+      if (termInfo.season === 'Fall') {
+        return {
+          season: 'Spring',
+          year: termInfo.year + 1,
+          label: formatSupportedTermLabel('Spring', termInfo.year + 1)
+        };
+      }
+      return {
+        season: 'Fall',
+        year: termInfo.year,
+        label: formatSupportedTermLabel('Fall', termInfo.year)
+      };
+    }
+
+    function buildGraduationEstimate(courses, takenSet, startTermInfo, maxCr=18) {
+      const remaining = courses.filter(course => !takenSet.has(course.code));
+      const remainingCredits = remaining.reduce((sum, course) => sum + (course.credits || 0), 0);
+      const remainingCourseCount = remaining.length;
+
+      if (remainingCourseCount === 0) {
+        return {
+          semestersLeft: 0,
+          remainingCredits,
+          remainingCourseCount,
+          startTermLabel: startTermInfo.label,
+          finishTermLabel: 'Completed',
+          roadmap: [],
+          unavailable: false,
+          message: ''
+        };
+      }
+
+      const lookup = new Map(courses.map(course => [course.code, course]));
+      const simulatedTaken = new Set(takenSet);
+      const roadmap = [];
+      let termInfo = { ...startTermInfo };
+      let noProgressTerms = 0;
+      let iterations = 0;
+      const maxIterations = Math.max(courses.length * 2 + 4, 12);
+
+      while (iterations < maxIterations) {
+        const outstanding = courses.filter(course => !simulatedTaken.has(course.code));
+        if (outstanding.length === 0) {
+          break;
+        }
+
+        const anchorTerm = findAnchorTerm(courses, simulatedTaken, termInfo.season);
+        const pool = listEligibleCourses(courses, simulatedTaken, termInfo.season);
+        const chosen = new Set();
+        let credits = 0;
+
+        for (const course of pool) {
+          if (chosen.has(course.code)) continue;
+          const bundle = ensureBundle(course, simulatedTaken, courses, lookup)
+            .filter(item => !chosen.has(item.code) && !simulatedTaken.has(item.code));
+          if (!bundle.every(item => isOfferedThisTerm(item, termInfo.season))) continue;
+          const bundleCredits = bundle.reduce((sum, item) => sum + (item.credits || 0), 0);
+          if (credits + bundleCredits <= maxCr) {
+            bundle.forEach(item => chosen.add(item.code));
+            credits += bundleCredits;
+          }
+        }
+
+        const scheduledCourses = Array.from(chosen)
+          .map(code => lookup.get(code))
+          .filter(Boolean)
+          .sort((a, b) => compareRecommendationDisplayPriority(a, b, anchorTerm));
+
+        if (scheduledCourses.length > 0) {
+          scheduledCourses.forEach(course => simulatedTaken.add(course.code));
+          roadmap.push({
+            termLabel: termInfo.label,
+            season: termInfo.season,
+            year: termInfo.year,
+            credits,
+            courseCodes: scheduledCourses.map(course => course.code),
+            note: ''
+          });
+          noProgressTerms = 0;
+        } else {
+          roadmap.push({
+            termLabel: termInfo.label,
+            season: termInfo.season,
+            year: termInfo.year,
+            credits: 0,
+            courseCodes: [],
+            note: 'Wait for prerequisites or the next offering'
+          });
+          noProgressTerms += 1;
+          if (noProgressTerms >= 2) {
+            return {
+              semestersLeft: roadmap.length,
+              remainingCredits,
+              remainingCourseCount,
+              startTermLabel: startTermInfo.label,
+              finishTermLabel: 'Unavailable',
+              roadmap,
+              unavailable: true,
+              message: 'Estimate unavailable with current prerequisite/offering data.'
+            };
+          }
+        }
+
+        termInfo = getNextSupportedTerm(termInfo);
+        iterations += 1;
+      }
+
+      const unfinished = courses.some(course => !simulatedTaken.has(course.code));
+      if (unfinished) {
+        return {
+          semestersLeft: roadmap.length,
+          remainingCredits,
+          remainingCourseCount,
+          startTermLabel: startTermInfo.label,
+          finishTermLabel: 'Unavailable',
+          roadmap,
+          unavailable: true,
+          message: 'Estimate unavailable with current prerequisite/offering data.'
+        };
+      }
+
+      return {
+        semestersLeft: roadmap.length,
+        remainingCredits,
+        remainingCourseCount,
+        startTermLabel: startTermInfo.label,
+        finishTermLabel: roadmap.length ? roadmap[roadmap.length - 1].termLabel : 'Completed',
+        roadmap,
+        unavailable: false,
+        message: ''
+      };
     }
 
     function getMissingHardPrerequisites(course, completedSet) {
@@ -1346,7 +1530,7 @@
         bodyHtml: `
           <p>You are about to mark courses as completed even though one or more hard prerequisites are not completed yet.</p>
           ${formatViolationListHtml(violations)}
-          <p>Do you wish to proceed even though the college may not allow it?</p>
+          <p>Do you wish to mark it even though the college and department will not it?</p>
         `
       };
     }
@@ -1357,7 +1541,7 @@
         bodyHtml: `
           <p>This imported plan includes courses whose hard prerequisites are not present in the imported record.</p>
           ${formatViolationListHtml(violations, 5)}
-          <p>Do you wish to proceed even though the college may not allow this course history?</p>
+          <p>Do you wish to proceed even though the college would not allow this course history?</p>
         `
       };
     }
@@ -1751,7 +1935,8 @@
       const reasons = [];
       const anchorTerm = findAnchorTerm(courses, takenSet, termLabel);
       const dependents = buildGraph(courses).prereqOf.get(course.code)?.size || 0;
-      const bundleSize = ensureBundle(course, takenSet).length;
+      const lookup = new Map(courses.map(item => [item.code, item]));
+      const bundleSize = ensureBundle(course, takenSet, courses, lookup).length;
 
       if (course.term === anchorTerm) reasons.push('next flowchart term');
       if (isOfferedThisTerm(course, termLabel)) reasons.push('offered now');
@@ -1995,6 +2180,49 @@
       }
     }
 
+    function renderSemesterEstimate() {
+      const summary = document.getElementById('semesterEstimateSummary');
+      const stats = document.getElementById('semesterEstimateStats');
+      const finish = document.getElementById('semesterEstimateFinish');
+      const note = document.getElementById('semesterEstimateNote');
+      const roadmap = document.getElementById('semesterEstimateRoadmap');
+      const unavailable = document.getElementById('semesterEstimateUnavailable');
+      if (!summary || !stats || !finish || !note || !roadmap || !unavailable) return;
+
+      const startTermInfo = getUpcomingSupportedTerm(new Date());
+      const estimate = buildGraduationEstimate(ENHANCED, taken, startTermInfo, 18);
+      const semesterLabel = estimate.semestersLeft === 1 ? 'semester' : 'semesters';
+      const courseLabel = estimate.remainingCourseCount === 1 ? 'course' : 'courses';
+
+      if (estimate.unavailable) {
+        summary.textContent = 'Estimate unavailable';
+      } else {
+        summary.textContent = `${estimate.semestersLeft} ${semesterLabel} left`;
+      }
+
+      stats.textContent = `${estimate.remainingCredits} credits remaining across ${estimate.remainingCourseCount} ${courseLabel}.`;
+      finish.textContent = `Projected finish term: ${estimate.finishTermLabel}`;
+      note.textContent = `This roadmap starts from ${estimate.startTermLabel}, ignores summer, and does not change when you switch the target-term selector above.`;
+
+      unavailable.textContent = estimate.message || '';
+      unavailable.classList.toggle('hidden', !estimate.unavailable);
+
+      roadmap.innerHTML = '';
+      estimate.roadmap.forEach(row => {
+        const item = document.createElement('li');
+        item.className = 'rounded-2xl border border-[var(--border)] bg-white/80 px-4 py-3 text-sm text-[var(--ink-soft)]';
+        const creditLabel = row.credits === 1 ? 'credit' : 'credits';
+        const detail = row.courseCodes.length
+          ? row.courseCodes.join(', ')
+          : row.note;
+        item.innerHTML = `
+          <div class="font-semibold text-[var(--uic-blue)]">${row.termLabel} · ${row.credits} ${creditLabel}</div>
+          <div class="mt-1">${detail}</div>
+        `;
+        roadmap.appendChild(item);
+      });
+    }
+
     function renderTerms() {
       const container = document.getElementById('termsGrid');
       container.innerHTML = '';
@@ -2044,6 +2272,7 @@
     function renderAll() {
       renderRecommendation();
       renderSuggestions();
+      renderSemesterEstimate();
       renderTerms();
       if (tutorialModalState.isOpen) {
         updateTutorialLayout();
