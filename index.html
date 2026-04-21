@@ -103,7 +103,10 @@
     .warning-close:focus-visible,
     #disclaimerAgreeBtn:focus-visible,
     #decisionConfirmBtn:focus-visible,
-    #decisionCancelBtn:focus-visible {
+    #decisionCancelBtn:focus-visible,
+    #tutorialBackBtn:focus-visible,
+    #tutorialNextBtn:focus-visible,
+    #tutorialSkipBtn:focus-visible {
       outline: 3px solid var(--uic-chicago-blue);
       outline-offset: 2px;
     }
@@ -491,6 +494,43 @@
       margin-top: 0.45rem;
     }
 
+    .tutorial-spotlight {
+      position: fixed;
+      border-radius: 1.5rem;
+      border: 3px solid var(--uic-gold);
+      box-shadow: 0 0 0 9999px rgba(0, 30, 98, 0.62);
+      pointer-events: none;
+      transition: top 0.18s ease, left 0.18s ease, width 0.18s ease, height 0.18s ease;
+      z-index: 1;
+    }
+
+    .tutorial-dialog {
+      position: fixed;
+      width: min(24rem, calc(100vw - 2rem));
+      border-radius: 1.8rem;
+      border: 2px solid rgba(255, 191, 63, 0.75);
+      background: #ffffff;
+      color: var(--ink-soft);
+      padding: 1.35rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 2;
+    }
+
+    .tutorial-progress {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--uic-red);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tutorial-body {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
     @media (max-width: 768px) {
       .control-deck {
         padding: 1.1rem;
@@ -506,6 +546,11 @@
 
       .section-heading h2 {
         font-size: 1.45rem;
+      }
+
+      .tutorial-dialog {
+        width: calc(100vw - 1.5rem);
+        padding: 1.1rem;
       }
     }
   </style>
@@ -528,7 +573,7 @@
         Use this tool entirely at your own risk. Always verify decisions against official UIC advising, catalog, and flowchart sources.
       </p>
       <div class="mt-5 rounded-2xl border border-[var(--border)] bg-white/75 p-4 text-sm text-[var(--ink-soft)]">
-        You only have to acknowledge this once per browser, and the warning will remain visible at the bottom of the page for reference.
+        You only have to acknowledge this once per day in this browser, and the warning will remain visible at the bottom of the page for reference.
       </div>
       <div class="mt-6 flex justify-end">
         <button id="disclaimerAgreeBtn" class="btn btn-primary">
@@ -550,6 +595,23 @@
     </div>
   </div>
 
+  <div id="tutorialModal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle" aria-describedby="tutorialBody">
+    <div class="absolute inset-0"></div>
+    <div id="tutorialSpotlight" class="tutorial-spotlight hidden" aria-hidden="true"></div>
+    <div id="tutorialDialog" class="tutorial-dialog hidden">
+      <div id="tutorialStepLabel" class="tutorial-progress">Step 1 of 6</div>
+      <h2 id="tutorialTitle" class="mt-2 text-2xl font-bold tracking-tight text-[var(--uic-blue)]">Welcome to the planner</h2>
+      <p id="tutorialBody" class="tutorial-body"></p>
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+        <button id="tutorialSkipBtn" class="btn" type="button">Skip</button>
+        <div class="flex flex-wrap gap-3">
+          <button id="tutorialBackBtn" class="btn" type="button">Back</button>
+          <button id="tutorialNextBtn" class="btn btn-primary" type="button">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="app-shell">
     <section class="surface-panel control-deck">
       <div class="grid gap-6 lg:grid-cols-[1.45fr_0.95fr]">
@@ -557,7 +619,7 @@
           <div class="helper-kicker">Experimental Curriculum Planning Dashboard</div>
           <header>
             <h1 id="plannerTitle" class="text-4xl md:text-5xl font-bold tracking-tight text-[var(--ink)]">UIC MIE Flowchart Planner</h1>
-            <p id="plannerSubtitle" class="mt-3 max-w-3xl text-base md:text-lg text-[var(--ink-soft)]">Choose a curriculum, mark the courses you have already finished, and review a next-term recommendation that respects offerings, prerequisites, corequisites, and planner priority.</p>
+            <p id="plannerSubtitle" class="mt-3 max-w-3xl text-base md:text-lg text-[var(--ink-soft)]">Choose a curriculum, pick Fall or Spring, mark the courses you have already finished, and review a next-term recommendation that favors the earliest unfinished matching flowchart term before planner priority.</p>
           </header>
 
           <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -567,15 +629,15 @@
             </div>
             <div class="onboarding-step">
               <div class="step-index">2</div>
-              <div><strong>Mark completed courses</strong><span>Click any course card to toggle it.</span></div>
+              <div><strong>Choose Fall or Spring</strong><span>Set the season you want to plan next.</span></div>
             </div>
             <div class="onboarding-step">
               <div class="step-index">3</div>
-              <div><strong>Review recommendation</strong><span>Use the target term to steer the next pack.</span></div>
+              <div><strong>Mark completed classes</strong><span>Click any course card to toggle it.</span></div>
             </div>
             <div class="onboarding-step">
               <div class="step-index">4</div>
-              <div><strong>Export or share</strong><span>Download a PNG or planner JSON.</span></div>
+              <div><strong>Export or share</strong><span>Download a PNG for review or a planner JSON backup.</span></div>
             </div>
           </div>
         </div>
@@ -653,12 +715,12 @@
       </div>
     </section>
 
-    <section class="surface-panel section-panel hero-panel">
+    <section id="recommendationSection" class="surface-panel section-panel hero-panel">
       <div class="section-heading">
         <div>
           <div class="helper-kicker mb-2">Primary Recommendation</div>
           <h2>Recommended Next Term</h2>
-          <p>Recommendations prioritize the next unfinished flowchart term first, then planner priority, while respecting prerequisites, concurrent rules, and course offering timing.</p>
+          <p>Recommendations are selected from the earliest unfinished matching flowchart term first so you do not skip far ahead, then displayed by planner priority while still respecting prerequisites, concurrent rules, and course offering timing.</p>
         </div>
         <div class="summary-pill" id="recCredits">Total credits: 0</div>
       </div>
@@ -671,7 +733,7 @@
         <div>
           <div class="helper-kicker mb-2">Eligible Backlog</div>
           <h2>Eligible Courses</h2>
-          <p>These courses are currently available under the selected term and filter, ordered by next flowchart placement first and planner priority second.</p>
+          <p>These courses are currently available under the selected term and filter, ordered by earliest unfinished matching flowchart term first and planner priority second.</p>
         </div>
       </div>
       <div id="suggGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
@@ -731,10 +793,16 @@
     let targetTerm = 'Fall';
     let terminals = new Set();
     const TERM_ORDER = ['F1', 'S1', 'F2', 'S2', 'F3', 'S3', 'F4', 'S4'];
-    const DISCLAIMER_ACK_KEY = 'plannerDisclaimerAcknowledged';
+    const DISCLAIMER_ACK_DATE_KEY = 'plannerDisclaimerAcknowledgedOn';
     const LAST_CURRICULUM_KEY = 'lastCurriculumId';
+    const TUTORIAL_COMPLETED_KEY = 'plannerTutorialCompleted:v1';
     const decisionModalState = {
       resolve: null,
+      restoreFocusEl: null
+    };
+    const tutorialModalState = {
+      isOpen: false,
+      currentStep: 0,
       restoreFocusEl: null
     };
 
@@ -887,14 +955,28 @@
       localStorage.setItem(LAST_CURRICULUM_KEY, curriculumId);
     }
 
+    function localCalendarDateKey(date=new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
     function disclaimerAcknowledged() {
-      return localStorage.getItem(DISCLAIMER_ACK_KEY) === 'true';
+      return localStorage.getItem(DISCLAIMER_ACK_DATE_KEY) === localCalendarDateKey();
+    }
+
+    function tutorialCompleted() {
+      return localStorage.getItem(TUTORIAL_COMPLETED_KEY) === 'true';
+    }
+
+    function decisionModalOpen() {
+      const decisionModal = document.getElementById('decisionModal');
+      return Boolean(decisionModal && !decisionModal.classList.contains('hidden'));
     }
 
     function bodyShouldBeLocked() {
-      const decisionModal = document.getElementById('decisionModal');
-      const decisionOpen = decisionModal && !decisionModal.classList.contains('hidden');
-      return !disclaimerAcknowledged() || decisionOpen;
+      return !disclaimerAcknowledged() || decisionModalOpen() || tutorialModalState.isOpen;
     }
 
     function updateBodyLockState() {
@@ -910,8 +992,9 @@
     }
 
     function acknowledgeDisclaimer() {
-      localStorage.setItem(DISCLAIMER_ACK_KEY, 'true');
+      localStorage.setItem(DISCLAIMER_ACK_DATE_KEY, localCalendarDateKey());
       updateDisclaimerVisibility();
+      maybeStartTutorial();
     }
 
     function loadTakenCourses(curriculumId) {
@@ -942,7 +1025,7 @@
       document.title = `${name} Flowchart — Interactive Planner`;
       document.getElementById('plannerTitle').textContent = `${name} Flowchart — Interactive Planner`;
       document.getElementById('plannerSubtitle').textContent =
-        'Choose a curriculum, mark the courses you have already finished, and review a next-term recommendation that respects offerings, prerequisites, corequisites, and planner priority.';
+        'Choose a curriculum, pick Fall or Spring, mark the courses you have already finished, and review a next-term recommendation that favors the earliest unfinished matching flowchart term before planner priority.';
       document.getElementById('curriculumMetaTitle').textContent = name;
       document.getElementById('curriculumMetaDescription').textContent =
         data.metadata?.description || 'Static curriculum planner data loaded successfully.';
@@ -1005,6 +1088,7 @@
 
         save();
         renderAll();
+        maybeStartTutorial();
         console.log('Curriculum loaded:', curriculumId);
 
       } catch (e) {
@@ -1120,9 +1204,15 @@
       return true;
     }
 
-    function compareRecommendationPriority(a, b, anchorTerm) {
+    function compareSelectionPriority(a, b, anchorTerm) {
       return termDistance(anchorTerm, a.term) - termDistance(anchorTerm, b.term)
         || b.pw - a.pw
+        || a.code.localeCompare(b.code);
+    }
+
+    function compareRecommendationDisplayPriority(a, b, anchorTerm) {
+      return b.pw - a.pw
+        || termDistance(anchorTerm, a.term) - termDistance(anchorTerm, b.term)
         || a.code.localeCompare(b.code);
     }
 
@@ -1134,7 +1224,7 @@
           && recommendationGateMet(c, takenSet, courses)
           && courseMatchesViewFilter(c, takenSet, termLabel, courses)
         )
-        .sort((a,b) => compareRecommendationPriority(a, b, anchorTerm));
+        .sort((a,b) => compareSelectionPriority(a, b, anchorTerm));
     }
 
     function getCoreqBundle(courseCode, takenSet) {
@@ -1201,7 +1291,7 @@
         }
       }
       const list = Array.from(chosen).map(code => codeMap.get(code)).filter(Boolean)
-        .sort((a,b) => compareRecommendationPriority(a, b, anchorTerm));
+        .sort((a,b) => compareRecommendationDisplayPriority(a, b, anchorTerm));
       return { list, credits };
     }
 
@@ -1285,6 +1375,7 @@
       }
 
       decisionModalState.restoreFocusEl = null;
+      maybeStartTutorial();
     }
 
     function settleDecisionModal(confirmed) {
@@ -1380,6 +1471,236 @@
       if (box) {
         box.classList.add('hidden');
       }
+    }
+
+    function getFirstVisibleElement(selector, root=document) {
+      if (!root) return null;
+      const elements = Array.from(root.querySelectorAll(selector));
+      if (!elements.length) return null;
+
+      const viewportHeight = window.innerHeight || 0;
+      return elements.find(el => {
+        const rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < viewportHeight;
+      }) || elements[0];
+    }
+
+    function tutorialSteps() {
+      return [
+        {
+          title: 'Pick your curriculum first',
+          body: 'Start by choosing the curriculum that matches your flowchart. Progress is saved separately for each curriculum in this browser.',
+          getTarget: () => document.getElementById('curriculumSelector')
+        },
+        {
+          title: 'Choose Fall or Spring',
+          body: 'Set the target term to the season you want to plan next. The planner anchors recommendations to the earliest unfinished flowchart term that matches this season.',
+          getTarget: () => document.getElementById('targetTerm')
+        },
+        {
+          title: 'Mark completed classes',
+          body: 'Use the curriculum map to mark every class you have already finished. Clicking a course card toggles it as completed so the planner can unlock the right next options.',
+          getTarget: () => getFirstVisibleElement('.course-card', document.getElementById('termsGrid')) || document.getElementById('termsGrid')
+        },
+        {
+          title: 'Read the recommendation by priority',
+          body: 'Positional weight estimates how much a course unlocks later in the curriculum. The planner selects from the earliest unfinished matching semester first so you do not skip too many classes, then shows the chosen pack by positional weight. Taking classes from the same semester together usually reduces schedule overlap and conflict risk.',
+          getTarget: () => document.getElementById('recommendationSection')
+        },
+        {
+          title: 'Verify prerequisites carefully',
+          body: 'Always read the prerequisite badges before trusting a plan. Courses that belong together in a semester still need their prerequisites checked against the official catalog and advising materials.',
+          getTarget: () => getFirstVisibleElement('.prereq-badge', document.getElementById('termsGrid'))
+            || getFirstVisibleElement('.course-card', document.getElementById('termsGrid'))
+            || document.getElementById('termsGrid')
+        },
+        {
+          title: 'Export a recommendation image',
+          body: 'When you want to share or review a plan, use Download image (.png). It exports the current planner view as a PNG snapshot for discussion and record keeping.',
+          getTarget: () => document.getElementById('exportBtn')
+        }
+      ];
+    }
+
+    function focusableTutorialControls() {
+      return [
+        document.getElementById('tutorialSkipBtn'),
+        document.getElementById('tutorialBackBtn'),
+        document.getElementById('tutorialNextBtn')
+      ].filter(button => button && !button.disabled);
+    }
+
+    function updateTutorialLayout() {
+      if (!tutorialModalState.isOpen) return;
+
+      const dialog = document.getElementById('tutorialDialog');
+      const spotlight = document.getElementById('tutorialSpotlight');
+      if (!dialog || !spotlight) return;
+
+      const step = tutorialSteps()[tutorialModalState.currentStep];
+      const target = step?.getTarget?.() || null;
+      const viewportPadding = 16;
+      const gap = 18;
+
+      if (!target) {
+        spotlight.classList.add('hidden');
+        dialog.style.top = `${Math.max(viewportPadding, (window.innerHeight - dialog.offsetHeight) / 2)}px`;
+        dialog.style.left = `${Math.max(viewportPadding, (window.innerWidth - dialog.offsetWidth) / 2)}px`;
+        return;
+      }
+
+      const rect = target.getBoundingClientRect();
+      const spotlightPadding = 10;
+      const spotlightTop = Math.max(8, rect.top - spotlightPadding);
+      const spotlightLeft = Math.max(8, rect.left - spotlightPadding);
+      const spotlightWidth = Math.min(window.innerWidth - spotlightLeft - 8, rect.width + spotlightPadding * 2);
+      const spotlightHeight = Math.min(window.innerHeight - spotlightTop - 8, rect.height + spotlightPadding * 2);
+
+      spotlight.style.top = `${spotlightTop}px`;
+      spotlight.style.left = `${spotlightLeft}px`;
+      spotlight.style.width = `${spotlightWidth}px`;
+      spotlight.style.height = `${spotlightHeight}px`;
+      spotlight.classList.remove('hidden');
+
+      const dialogRect = dialog.getBoundingClientRect();
+      let top = rect.bottom + gap;
+      if (top + dialogRect.height > window.innerHeight - viewportPadding) {
+        top = rect.top - dialogRect.height - gap;
+      }
+      if (top < viewportPadding) {
+        top = Math.max(viewportPadding, (window.innerHeight - dialogRect.height) / 2);
+      }
+
+      let left = rect.left;
+      if (left + dialogRect.width > window.innerWidth - viewportPadding) {
+        left = window.innerWidth - dialogRect.width - viewportPadding;
+      }
+      if (left < viewportPadding) {
+        left = viewportPadding;
+      }
+
+      dialog.style.top = `${top}px`;
+      dialog.style.left = `${left}px`;
+    }
+
+    function renderTutorialStep() {
+      if (!tutorialModalState.isOpen) return;
+
+      const steps = tutorialSteps();
+      const step = steps[tutorialModalState.currentStep];
+      if (!step) return;
+
+      const label = document.getElementById('tutorialStepLabel');
+      const title = document.getElementById('tutorialTitle');
+      const body = document.getElementById('tutorialBody');
+      const backBtn = document.getElementById('tutorialBackBtn');
+      const nextBtn = document.getElementById('tutorialNextBtn');
+      const dialog = document.getElementById('tutorialDialog');
+      const target = step.getTarget?.() || null;
+
+      if (!label || !title || !body || !backBtn || !nextBtn || !dialog) return;
+
+      label.textContent = `Step ${tutorialModalState.currentStep + 1} of ${steps.length}`;
+      title.textContent = step.title;
+      body.textContent = step.body;
+      backBtn.disabled = tutorialModalState.currentStep === 0;
+      backBtn.classList.toggle('opacity-50', backBtn.disabled);
+      backBtn.classList.toggle('cursor-not-allowed', backBtn.disabled);
+      nextBtn.textContent = tutorialModalState.currentStep === steps.length - 1 ? 'Done' : 'Next';
+      dialog.classList.remove('hidden');
+
+      if (target && typeof target.scrollIntoView === 'function') {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+      }
+
+      requestAnimationFrame(() => {
+        updateTutorialLayout();
+        nextBtn.focus();
+      });
+    }
+
+    function openTutorial() {
+      if (tutorialModalState.isOpen) return;
+
+      const modal = document.getElementById('tutorialModal');
+      const dialog = document.getElementById('tutorialDialog');
+      if (!modal || !dialog) return;
+
+      tutorialModalState.isOpen = true;
+      tutorialModalState.currentStep = 0;
+      tutorialModalState.restoreFocusEl = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      modal.classList.remove('hidden');
+      updateBodyLockState();
+      renderTutorialStep();
+    }
+
+    function closeTutorial({ markComplete=false, restoreFocus=true } = {}) {
+      const modal = document.getElementById('tutorialModal');
+      const dialog = document.getElementById('tutorialDialog');
+      const spotlight = document.getElementById('tutorialSpotlight');
+      if (!modal || !dialog || !spotlight) return;
+
+      if (markComplete) {
+        localStorage.setItem(TUTORIAL_COMPLETED_KEY, 'true');
+      }
+
+      tutorialModalState.isOpen = false;
+      modal.classList.add('hidden');
+      dialog.classList.add('hidden');
+      spotlight.classList.add('hidden');
+      updateBodyLockState();
+
+      if (restoreFocus && tutorialModalState.restoreFocusEl && typeof tutorialModalState.restoreFocusEl.focus === 'function') {
+        tutorialModalState.restoreFocusEl.focus();
+      }
+      tutorialModalState.restoreFocusEl = null;
+    }
+
+    function maybeStartTutorial() {
+      if (!currentCurriculum || !disclaimerAcknowledged() || tutorialCompleted() || tutorialModalState.isOpen || decisionModalOpen()) {
+        return;
+      }
+      openTutorial();
+    }
+
+    function goToNextTutorialStep() {
+      const steps = tutorialSteps();
+      if (tutorialModalState.currentStep >= steps.length - 1) {
+        closeTutorial({ markComplete: true });
+        return;
+      }
+      tutorialModalState.currentStep += 1;
+      renderTutorialStep();
+    }
+
+    function goToPreviousTutorialStep() {
+      if (tutorialModalState.currentStep === 0) return;
+      tutorialModalState.currentStep -= 1;
+      renderTutorialStep();
+    }
+
+    function handleTutorialModalKeydown(event) {
+      if (!tutorialModalState.isOpen) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeTutorial({ markComplete: true });
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = focusableTutorialControls();
+      if (focusable.length === 0) return;
+
+      const currentIndex = focusable.indexOf(document.activeElement);
+      const movingBackward = event.shiftKey;
+      const nextIndex = movingBackward
+        ? (currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1)
+        : (currentIndex === -1 || currentIndex >= focusable.length - 1 ? 0 : currentIndex + 1);
+
+      event.preventDefault();
+      focusable[nextIndex].focus();
     }
 
     // -----------------------------
@@ -1496,7 +1817,7 @@
       });
 
       coursesByTerm.forEach((list, termId) => {
-        list.sort((a, b) => compareRecommendationPriority(a, b, anchorTerm));
+        list.sort((a, b) => compareSelectionPriority(a, b, anchorTerm));
       });
 
       const svgParts = [
@@ -1681,7 +2002,7 @@
       (currentCurriculum?.terms || []).forEach(t => map.set(t.id, []));
       ENHANCED.forEach(c => { if (!map.has(c.term)) map.set(c.term, []); map.get(c.term).push(c); });
       const anchorTerm = findAnchorTerm(ENHANCED, taken, targetTerm);
-      (currentCurriculum?.terms || []).forEach(t => map.get(t.id).sort((a,b)=> compareRecommendationPriority(a, b, anchorTerm)));
+      (currentCurriculum?.terms || []).forEach(t => map.get(t.id).sort((a,b)=> compareSelectionPriority(a, b, anchorTerm)));
 
       for (const t of (currentCurriculum?.terms || [])) {
         const card = document.createElement('details');
@@ -1724,6 +2045,9 @@
       renderRecommendation();
       renderSuggestions();
       renderTerms();
+      if (tutorialModalState.isOpen) {
+        updateTutorialLayout();
+      }
     }
 
     // -----------------------------
@@ -1792,6 +2116,18 @@
       dismissWarning();
     });
 
+    document.getElementById('tutorialBackBtn').addEventListener('click', () => {
+      goToPreviousTutorialStep();
+    });
+
+    document.getElementById('tutorialNextBtn').addEventListener('click', () => {
+      goToNextTutorialStep();
+    });
+
+    document.getElementById('tutorialSkipBtn').addEventListener('click', () => {
+      closeTutorial({ markComplete: true });
+    });
+
     document.getElementById('importInput').addEventListener('change', (e) => {
       const file = e.target.files?.[0]; if (!file) return;
       const reader = new FileReader();
@@ -1851,6 +2187,9 @@
     });
 
     document.addEventListener('keydown', handleDecisionModalKeydown);
+    document.addEventListener('keydown', handleTutorialModalKeydown);
+    window.addEventListener('resize', updateTutorialLayout);
+    window.addEventListener('scroll', updateTutorialLayout, true);
 
     // Initialize with first curriculum
     updateDisclaimerVisibility();
